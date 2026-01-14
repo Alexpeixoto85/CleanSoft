@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2c3e50">
+    <title>CleanSoft Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --light-gray: #f8f9fa;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.5;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* App Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .date-time {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-align: right;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 10px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            transition: all 0.2s;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active i {
+            color: var(--secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+
+        .stat-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
+        }
+
+        .stat-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .action-btn {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            border: none;
+            width: 100%;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+            background-color: #f8f9fa;
+        }
+
+        .action-btn i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .action-btn span {
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+        }
+
+        .list-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-content h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .list-item-content p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .list-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .icon-btn:active {
+            background-color: #f0f0f0;
+        }
+
+        .icon-btn.edit {
+            color: var(--secondary);
+        }
+
+        .icon-btn.delete {
+            color: var(--accent);
+        }
+
+        .icon-btn.view {
+            color: var(--success);
+        }
+
+        .icon-btn.whatsapp {
+            color: #25D366;
+        }
+
+        /* Status Badges */
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pendente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-aprovado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-concluido {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-cancelado {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-andamento {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .status-agendado {
+            background-color: #f3e5f5;
+            color: #4a148c;
+        }
+
+        .status-enviado {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            background-color: white;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            border-radius: var(--radius) var(--radius) 0 0;
+            z-index: 1;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:active {
+            background-color: #f0f0f0;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.2s;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+            background-color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Search Input */
+        .search-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Priority Indicators */
+        .priority {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .priority-alta {
+            background-color: var(--accent);
+        }
+
+        .priority-media {
+            background-color: var(--warning);
+        }
+
+        .priority-baixa {
+            background-color: var(--success);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 380px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+            }
+        }
+
+        /* iOS Safe Areas */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(15px, env(safe-area-inset-left));
+                padding-right: max(15px, env(safe-area-inset-right));
+                padding-bottom: max(80px, env(safe-area-inset-bottom));
+            }
+            
+            .bottom-nav {
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-soap"></i>
+                </div>
+                <h1>Clean<span>Soft</span></h1>
+            </div>
+            <div class="date-time">
+                <div id="currentDate">--/--/----</div>
+                <div id="currentTime">--:--</div>
+            </div>
+        </div>
+        <div id="pageTitle">Dashboard</div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #e3f2fd; color: var(--secondary);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalClientes">0</h3>
+                        <p>Clientes</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #e8f5e9; color: var(--success);">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrcamentos">0</h3>
+                        <p>Orçamentos</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #fff3e0; color: var(--warning);">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrdens">0</h3>
+                        <p>Ordens</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #fce4ec; color: #e91e63;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalAgendamentos">0</h3>
+                        <p>Hoje</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <h2 style="margin-bottom: 15px;">Ações Rápidas</h2>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="showClienteForm()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Novo Cliente</span>
+                    </button>
+                    <button class="action-btn" onclick="showOrcamentoForm()">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Novo Orçamento</span>
+                    </button>
+                    <button class="action-btn" onclick="showOrdemForm()">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>Nova Ordem</span>
+                    </button>
+                    <button class="action-btn" onclick="showAgendamentoForm()">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Agendar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Atividades Recentes</h2>
+                    <button class="btn btn-outline" onclick="loadRecentActivities()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <ul class="list" id="recentActivities">
+                    <div class="empty-state">
+                        <i class="fas fa-clock"></i>
+                        <p>Carregando atividades...</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Clientes -->
+        <section id="clientes" class="page">
+            <div class="search-box">
+                <input type="text" id="searchCliente" class="search-input" placeholder="Buscar clientes..." oninput="loadClientes()">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Clientes</h2>
+                    <button class="btn btn-primary" onclick="showClienteForm()">
+                        <i class="fas fa-plus"></i> Novo
+                    </button>
+                </div>
+                <ul class="list" id="listaClientes">
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>Carregando clientes...</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Orçamentos -->
+        <section id="orcamentos" class="page">
+            <div class="filter-bar">
+                <select id="filterStatusOrcamento" class="filter-select" onchange="loadOrcamentos()">
+                    <option value="">Todos os status</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="aprovado">Aprovado</option>
+                    <option value="recusado">Recusado</option>
+                    <option value="enviado">Enviado</option>
+                </select>
+                <select id="filterClienteOrcamento" class="filter-select" onchange="loadOrcamentos()">
+                    <option value="">Todos os clientes</option>
+                </select>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Orçamentos</h2>
+                    <button class="btn btn-primary" onclick="showOrcamentoForm()">
+                        <i class="fas fa-plus"></i> Novo
+                    </button>
+                </div>
+                <ul class="list" id="listaOrcamentos">
+                    <div class="empty-state">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <p>Carregando orçamentos...</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ordens -->
+        <section id="ordens" class="page">
+            <div class="filter-bar">
+                <select id="filterStatusOrdem" class="filter-select" onchange="loadOrdens()">
+                    <option value="">Todos os status</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="andamento">Em Andamento</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+                <select id="filterPrioridadeOrdem" class="filter-select" onchange="loadOrdens()">
+                    <option value="">Todas as prioridades</option>
+                    <option value="alta">Alta</option>
+                    <option value="media">Média</option>
+                    <option value="baixa">Baixa</option>
+                </select>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Ordens de Serviço</h2>
+                    <button class="btn btn-primary" onclick="showOrdemForm()">
+                        <i class="fas fa-plus"></i> Nova
+                    </button>
+                </div>
+                <ul class="list" id="listaOrdens">
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Carregando ordens...</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Agendamentos -->
+        <section id="agendamentos" class="page">
+            <div class="filter-bar">
+                <select id="filterStatusAgendamento" class="filter-select" onchange="loadAgendamentos()">
+                    <option value="">Todos os status</option>
+                    <option value="agendado">Agendado</option>
+                    <option value="confirmado">Confirmado</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+                <input type="date" id="filterDataAgendamento" class="filter-select" onchange="loadAgendamentos()">
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Agendamentos</h2>
+                    <button class="btn btn-primary" onclick="showAgendamentoForm()">
+                        <i class="fas fa-plus"></i> Novo
+                    </button>
+                </div>
+                <ul class="list" id="listaAgendamentos">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>Carregando agendamentos...</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </a>
+        <a href="#" class="nav-item" data-page="clientes">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
+        <a href="#" class="nav-item" data-page="orcamentos">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Orçamentos</span>
+        </a>
+        <a href="#" class="nav-item" data-page="ordens">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Ordens</span>
+        </a>
+        <a href="#" class="nav-item" data-page="agendamentos">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+    </nav>
+
+    <!-- Floating Action Button (contextual) -->
+    <button class="fab" id="fab" style="display: none;">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Novo Cliente</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo carregado dinamicamente -->
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- Botões carregados dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Variáveis globais
+        let db;
+        let currentPage = 'dashboard';
+        let editingId = null;
+        let currentFabAction = null;
+
+        // Inicializar o app quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            initDB();
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+            setupNavigation();
+            setupFab();
+            setupEventListeners();
+        });
+
+        // Inicializar IndexedDB
+        function initDB() {
+            const request = indexedDB.open('CleanSoftMobileDB', 3);
+            
+            request.onerror = function(event) {
+                console.error('Erro ao abrir banco de dados:', event.target.error);
+                showToast('Erro ao inicializar banco de dados. Recarregue a página.', 'error');
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('Banco de dados inicializado com sucesso');
+                
+                // Carregar dados iniciais
+                loadDashboardData();
+                loadClientes();
+                loadOrcamentos();
+                loadOrdens();
+                loadAgendamentos();
+                loadFilterOptions();
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Criar object stores
+                if (!db.objectStoreNames.contains('clientes')) {
+                    const store = db.createObjectStore('clientes', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('nome', 'nome', { unique: false });
+                    store.createIndex('telefone', 'telefone', { unique: false });
+                }
+                
+                if (!db.objectStoreNames.contains('orcamentos')) {
+                    const store = db.createObjectStore('orcamentos', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('clienteId', 'clienteId', { unique: false });
+                    store.createIndex('status', 'status', { unique: false });
+                    store.createIndex('data', 'data', { unique: false });
+                }
+                
+                if (!db.objectStoreNames.contains('ordens')) {
+                    const store = db.createObjectStore('ordens', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('clienteId', 'clienteId', { unique: false });
+                    store.createIndex('status', 'status', { unique: false });
+                    store.createIndex('prioridade', 'prioridade', { unique: false });
+                    store.createIndex('dataCriacao', 'dataCriacao', { unique: false });
+                }
+                
+                if (!db.objectStoreNames.contains('agendamentos')) {
+                    const store = db.createObjectStore('agendamentos', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('clienteId', 'clienteId', { unique: false });
+                    store.createIndex('status', 'status', { unique: false });
+                    store.createIndex('data', 'data', { unique: false });
+                    store.createIndex('hora', 'hora', { unique: false });
+                }
+                
+                if (!db.objectStoreNames.contains('atividades')) {
+                    const store = db.createObjectStore('atividades', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('data', 'data', { unique: false });
+                }
+            };
+        }
+
+        // Atualizar data e hora
+        function updateDateTime() {
+            try {
+                const now = new Date();
+                
+                // Formatar data
+                const optionsDate = { weekday: 'short', day: '2-digit', month: 'short' };
+                const dateStr = now.toLocaleDateString('pt-BR', optionsDate);
+                document.getElementById('currentDate').textContent = dateStr;
+                
+                // Formatar hora
+                const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('currentTime').textContent = timeStr;
+            } catch (e) {
+                console.error('Erro ao atualizar data/hora:', e);
+            }
+        }
+
+        // Configurar navegação
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Atualizar navegação ativa
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Mostrar página correspondente
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                    
+                    // Atualizar título
+                    const pageTitle = this.querySelector('span').textContent;
+                    document.getElementById('pageTitle').textContent = pageTitle;
+                    
+                    // Atualizar FAB
+                    updateFab(pageId);
+                });
+            });
+        }
+
+        // Configurar FAB
+        function setupFab() {
+            const fab = document.getElementById('fab');
+            if (fab) {
+                fab.addEventListener('click', function() {
+                    if (currentFabAction && typeof currentFabAction === 'function') {
+                        currentFabAction();
+                    }
+                });
+            }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Busca de clientes
+            const searchInput = document.getElementById('searchCliente');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    loadClientes(this.value);
+                });
+            }
+        }
+
+        // Atualizar FAB baseado na página atual
+        function updateFab(pageId) {
+            const fab = document.getElementById('fab');
+            if (!fab) return;
+            
+            switch(pageId) {
+                case 'clientes':
+                    fab.style.display = 'flex';
+                    fab.innerHTML = '<i class="fas fa-user-plus"></i>';
+                    currentFabAction = showClienteForm;
+                    break;
+                case 'orcamentos':
+                    fab.style.display = 'flex';
+                    fab.innerHTML = '<i class="fas fa-file-invoice-dollar"></i>';
+                    currentFabAction = showOrcamentoForm;
+                    break;
+                case 'ordens':
+                    fab.style.display = 'flex';
+                    fab.innerHTML = '<i class="fas fa-clipboard-check"></i>';
+                    currentFabAction = showOrdemForm;
+                    break;
+                case 'agendamentos':
+                    fab.style.display = 'flex';
+                    fab.innerHTML = '<i class="fas fa-calendar-plus"></i>';
+                    currentFabAction = showAgendamentoForm;
+                    break;
+                default:
+                    fab.style.display = 'none';
+                    currentFabAction = null;
+            }
+        }
+
+        // Mostrar página
+        function showPage(pageId) {
+            // Esconder todas as páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar página solicitada
+            const pageElement = document.getElementById(pageId);
+            if (pageElement) {
+                pageElement.classList.add('active');
+                currentPage = pageId;
+                
+                // Carregar dados da página se necessário
+                switch(pageId) {
+                    case 'dashboard':
+                        loadDashboardData();
+                        break;
+                    case 'clientes':
+                        loadClientes();
+                        break;
+                    case 'orcamentos':
+                        loadOrcamentos();
+                        break;
+                    case 'ordens':
+                        loadOrdens();
+                        break;
+                    case 'agendamentos':
+                        loadAgendamentos();
+                        break;
+                }
+            }
+        }
+
+        // Carregar dados do dashboard
+        function loadDashboardData() {
+            if (!db) {
+                setTimeout(loadDashboardData, 100);
+                return;
+            }
+            
+            countRecords('clientes', 'totalClientes');
+            countRecords('orcamentos', 'totalOrcamentos');
+            countRecords('ordens', 'totalOrdens');
+            countTodayAgendamentos();
+            loadRecentActivities();
+        }
+
+        function countRecords(storeName, elementId) {
+            if (!db) return;
+            
+            const transaction = db.transaction([storeName], 'readonly');
+            const store = transaction.objectStore(storeName);
+            const request = store.count();
+            
+            request.onsuccess = function() {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.textContent = request.result;
+                }
+            };
+            
+            request.onerror = function() {
+                console.error('Erro ao contar registros:', storeName);
+            };
+        }
+
+        function countTodayAgendamentos() {
+            if (!db) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const transaction = db.transaction(['agendamentos'], 'readonly');
+            const store = transaction.objectStore('agendamentos');
+            const index = store.index('data');
+            const range = IDBKeyRange.only(today);
+            
+            const request = index.count(range);
+            
+            request.onsuccess = function() {
+                const element = document.getElementById('totalAgendamentos');
+                if (element) {
+                    element.textContent = request.result;
+                }
+            };
+        }
+
+        // Carregar opções de filtro
+        function loadFilterOptions() {
+            if (!db) return;
+            
+            // Carregar clientes para filtro de orçamentos
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                const clientes = request.result || [];
+                const select = document.getElementById('filterClienteOrcamento');
+                if (select) {
+                    select.innerHTML = '<option value="">Todos os clientes</option>';
+                    clientes.forEach(cliente => {
+                        select.innerHTML += `<option value="${cliente.id}">${cliente.nome}</option>`;
+                    });
+                }
+            };
+        }
+
+        // ========== FUNÇÕES DE MODAL ==========
+        function openModal() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.classList.remove('active');
+                editingId = null;
+                document.getElementById('modalBody').innerHTML = '';
+                document.getElementById('modalFooter').innerHTML = '';
+            }
+        }
+
+        // ========== CLIENTES ==========
+        function showClienteForm(cliente = null) {
+            editingId = cliente ? cliente.id : null;
+            
+            document.getElementById('modalTitle').textContent = cliente ? 'Editar Cliente' : 'Novo Cliente';
+            
+            const formHTML = `
+                <div class="form-group">
+                    <label for="clienteNome">Nome *</label>
+                    <input type="text" id="clienteNome" class="form-control" value="${cliente ? cliente.nome : ''}" placeholder="Nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clienteTelefone">Telefone *</label>
+                    <input type="tel" id="clienteTelefone" class="form-control" value="${cliente ? cliente.telefone : ''}" placeholder="(11) 99999-9999" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clienteEmail">E-mail</label>
+                    <input type="email" id="clienteEmail" class="form-control" value="${cliente ? cliente.email || '' : ''}" placeholder="email@exemplo.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="clienteEndereco">Endereço</label>
+                    <textarea id="clienteEndereco" class="form-control" placeholder="Endereço completo">${cliente ? cliente.endereco || '' : ''}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clienteObservacoes">Observações</label>
+                    <textarea id="clienteObservacoes" class="form-control" placeholder="Observações sobre o cliente">${cliente ? cliente.observacoes || '' : ''}</textarea>
+                </div>
+            `;
+            
+            const footerHTML = `
+                <button type="button" class="btn btn-danger" onclick="closeModal()">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="saveCliente()">Salvar</button>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = formHTML;
+            document.getElementById('modalFooter').innerHTML = footerHTML;
+            
+            openModal();
+            
+            // Focar no primeiro campo
+            setTimeout(() => {
+                const nomeInput = document.getElementById('clienteNome');
+                if (nomeInput) nomeInput.focus();
+            }, 300);
+        }
+
+        function saveCliente() {
+            const nome = document.getElementById('clienteNome').value.trim();
+            const telefone = document.getElementById('clienteTelefone').value.trim();
+            const email = document.getElementById('clienteEmail').value.trim();
+            const endereco = document.getElementById('clienteEndereco').value.trim();
+            const observacoes = document.getElementById('clienteObservacoes').value.trim();
+            
+            // Validação básica
+            if (!nome || !telefone) {
+                showToast('Preencha todos os campos obrigatórios', 'warning');
+                return;
+            }
+            
+            const cliente = {
+                nome: nome,
+                telefone: telefone,
+                email: email,
+                endereco: endereco,
+                observacoes: observacoes,
+                dataCadastro: new Date().toISOString()
+            };
+            
+            if (editingId) {
+                cliente.id = editingId;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const transaction = db.transaction(['clientes'], 'readwrite');
+            const store = transaction.objectStore('clientes');
+            
+            const request = editingId ? store.put(cliente) : store.add(cliente);
+            
+            request.onsuccess = function() {
+                showToast('Cliente salvo com sucesso!', 'success');
+                closeModal();
+                loadClientes();
+                loadDashboardData();
+                loadFilterOptions();
+                
+                // Adicionar atividade
+                addAtividade('cliente', editingId ? 'Cliente atualizado' : 'Novo cliente cadastrado', cliente.nome);
+            };
+            
+            request.onerror = function() {
+                showToast('Erro ao salvar cliente', 'error');
+            };
+        }
+
+        function loadClientes(searchTerm = '') {
+            if (!db) {
+                setTimeout(() => loadClientes(searchTerm), 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                let clientes = request.result || [];
+                
+                // Aplicar filtro de busca
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    clientes = clientes.filter(cliente => 
+                        cliente.nome.toLowerCase().includes(term) ||
+                        cliente.telefone.includes(searchTerm) ||
+                        (cliente.email && cliente.email.toLowerCase().includes(term))
+                    );
+                }
+                
+                displayClientes(clientes);
+            };
+            
+            request.onerror = function() {
+                console.error('Erro ao carregar clientes');
+                showToast('Erro ao carregar clientes', 'error');
+            };
+        }
+
+        function displayClientes(clientes) {
+            const container = document.getElementById('listaClientes');
+            if (!container) return;
+            
+            if (!clientes || clientes.length === 0) {
+                const searchTerm = document.getElementById('searchCliente')?.value || '';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>${searchTerm ? 'Nenhum cliente encontrado' : 'Nenhum cliente cadastrado'}</p>
+                        <button class="btn btn-primary" onclick="showClienteForm()" style="margin-top: 15px;">
+                            <i class="fas fa-plus"></i> Adicionar primeiro cliente
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            clientes.forEach(cliente => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                
+                li.innerHTML = `
+                    <div class="list-item-content">
+                        <h3>${cliente.nome}</h3>
+                        <p><i class="fas fa-phone"></i> ${cliente.telefone} ${cliente.email ? `• <i class="fas fa-envelope"></i> ${cliente.email}` : ''}</p>
+                        ${cliente.endereco ? `<p style="font-size: 0.8rem; color: var(--gray); margin-top: 5px;"><i class="fas fa-map-marker-alt"></i> ${cliente.endereco.substring(0, 40)}${cliente.endereco.length > 40 ? '...' : ''}</p>` : ''}
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="icon-btn edit" onclick="editCliente(${cliente.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn delete" onclick="deleteCliente(${cliente.id})" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+
+        function editCliente(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                if (request.result) {
+                    showClienteForm(request.result);
+                }
+            };
+        }
+
+        function deleteCliente(id) {
+            if (!confirm('Tem certeza que deseja excluir este cliente?')) return;
+            
+            if (!db) return;
+            
+            const transaction = db.transaction(['clientes'], 'readwrite');
+            const store = transaction.objectStore('clientes');
+            const request = store.delete(id);
+            
+            request.onsuccess = function() {
+                showToast('Cliente excluído com sucesso', 'success');
+                loadClientes();
+                loadDashboardData();
+                loadFilterOptions();
+                addAtividade('cliente', 'Cliente excluído');
+            };
+        }
+
+        // ========== ORÇAMENTOS ==========
+        function showOrcamentoForm(orcamento = null) {
+            editingId = orcamento ? orcamento.id : null;
+            
+            document.getElementById('modalTitle').textContent = orcamento ? 'Editar Orçamento' : 'Novo Orçamento';
+            
+            // Primeiro carregar clientes
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                const clientes = request.result || [];
+                const clientesOptions = clientes.map(c => 
+                    `<option value="${c.id}" ${orcamento && orcamento.clienteId == c.id ? 'selected' : ''}>${c.nome}</option>`
+                ).join('');
+                
+                const formHTML = `
+                    <div class="form-group">
+                        <label for="orcamentoClienteId">Cliente *</label>
+                        <select id="orcamentoClienteId" class="form-control" required>
+                            <option value="">Selecione um cliente</option>
+                            ${clientesOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orcamentoServicos">Serviços *</label>
+                        <textarea id="orcamentoServicos" class="form-control" placeholder="Descreva os serviços a serem realizados" required rows="3">${orcamento ? orcamento.servicos : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orcamentoValor">Valor (R$) *</label>
+                        <input type="number" id="orcamentoValor" class="form-control" step="0.01" min="0" value="${orcamento ? orcamento.valor : ''}" placeholder="0,00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orcamentoValidade">Validade (dias) *</label>
+                        <input type="number" id="orcamentoValidade" class="form-control" min="1" max="30" value="${orcamento ? orcamento.validade || 7 : 7}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orcamentoStatus">Status</label>
+                        <select id="orcamentoStatus" class="form-control">
+                            <option value="pendente" ${orcamento && orcamento.status === 'pendente' ? 'selected' : 'selected'}>Pendente</option>
+                            <option value="aprovado" ${orcamento && orcamento.status === 'aprovado' ? 'selected' : ''}>Aprovado</option>
+                            <option value="recusado" ${orcamento && orcamento.status === 'recusado' ? 'selected' : ''}>Recusado</option>
+                            <option value="enviado" ${orcamento && orcamento.status === 'enviado' ? 'selected' : ''}>Enviado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orcamentoObservacoes">Observações</label>
+                        <textarea id="orcamentoObservacoes" class="form-control" placeholder="Observações adicionais">${orcamento ? orcamento.observacoes || '' : ''}</textarea>
+                    </div>
+                `;
+                
+                const footerHTML = `
+                    <button type="button" class="btn btn-danger" onclick="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="saveOrcamento()">Salvar</button>
+                `;
+                
+                document.getElementById('modalBody').innerHTML = formHTML;
+                document.getElementById('modalFooter').innerHTML = footerHTML;
+                
+                openModal();
+            };
+        }
+
+        function saveOrcamento() {
+            const clienteId = document.getElementById('orcamentoClienteId').value;
+            const servicos = document.getElementById('orcamentoServicos').value.trim();
+            const valor = parseFloat(document.getElementById('orcamentoValor').value) || 0;
+            const validade = parseInt(document.getElementById('orcamentoValidade').value) || 7;
+            const status = document.getElementById('orcamentoStatus').value;
+            const observacoes = document.getElementById('orcamentoObservacoes').value.trim();
+            
+            // Validação
+            if (!clienteId || !servicos || valor <= 0) {
+                showToast('Preencha todos os campos obrigatórios', 'warning');
+                return;
+            }
+            
+            const orcamento = {
+                clienteId: parseInt(clienteId),
+                servicos: servicos,
+                valor: valor,
+                validade: validade,
+                status: status,
+                observacoes: observacoes,
+                data: new Date().toISOString()
+            };
+            
+            if (editingId) {
+                orcamento.id = editingId;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Primeiro buscar nome do cliente
+            const clienteTransaction = db.transaction(['clientes'], 'readonly');
+            const clienteStore = clienteTransaction.objectStore('clientes');
+            const clienteRequest = clienteStore.get(parseInt(clienteId));
+            
+            clienteRequest.onsuccess = function() {
+                const clienteNome = clienteRequest.result ? clienteRequest.result.nome : '';
+                
+                const transaction = db.transaction(['orcamentos'], 'readwrite');
+                const store = transaction.objectStore('orcamentos');
+                
+                const request = editingId ? store.put(orcamento) : store.add(orcamento);
+                
+                request.onsuccess = function() {
+                    showToast('Orçamento salvo com sucesso!', 'success');
+                    closeModal();
+                    loadOrcamentos();
+                    loadDashboardData();
+                    
+                    addAtividade('orcamento', editingId ? 'Orçamento atualizado' : 'Novo orçamento criado', clienteNome, orcamento.status);
+                };
+                
+                request.onerror = function() {
+                    showToast('Erro ao salvar orçamento', 'error');
+                };
+            };
+        }
+
+        function loadOrcamentos() {
+            if (!db) {
+                setTimeout(loadOrcamentos, 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                let orcamentos = request.result || [];
+                
+                // Aplicar filtros
+                const statusFilter = document.getElementById('filterStatusOrcamento')?.value || '';
+                const clienteFilter = document.getElementById('filterClienteOrcamento')?.value || '';
+                
+                if (statusFilter) {
+                    orcamentos = orcamentos.filter(o => o.status === statusFilter);
+                }
+                
+                if (clienteFilter) {
+                    orcamentos = orcamentos.filter(o => o.clienteId == clienteFilter);
+                }
+                
+                // Ordenar por data (mais recente primeiro)
+                orcamentos.sort((a, b) => new Date(b.data) - new Date(a.data));
+                
+                // Buscar nomes dos clientes
+                Promise.all(orcamentos.map(orcamento => 
+                    new Promise(resolve => {
+                        const transaction = db.transaction(['clientes'], 'readonly');
+                        const store = transaction.objectStore('clientes');
+                        const request = store.get(orcamento.clienteId);
+                        request.onsuccess = function() {
+                            orcamento.clienteNome = request.result ? request.result.nome : 'Cliente não encontrado';
+                            resolve(orcamento);
+                        };
+                        request.onerror = function() {
+                            orcamento.clienteNome = 'Erro ao carregar';
+                            resolve(orcamento);
+                        };
+                    })
+                )).then(orcamentosComNomes => {
+                    displayOrcamentos(orcamentosComNomes);
+                });
+            };
+        }
+
+        function displayOrcamentos(orcamentos) {
+            const container = document.getElementById('listaOrcamentos');
+            if (!container) return;
+            
+            if (!orcamentos || orcamentos.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <p>Nenhum orçamento encontrado</p>
+                        <button class="btn btn-primary" onclick="showOrcamentoForm()" style="margin-top: 15px;">
+                            <i class="fas fa-plus"></i> Criar primeiro orçamento
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            orcamentos.forEach(orcamento => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                
+                const data = new Date(orcamento.data);
+                const dataStr = data.toLocaleDateString('pt-BR');
+                
+                li.innerHTML = `
+                    <div class="list-item-content">
+                        <h3>Orçamento #${orcamento.id}</h3>
+                        <p><i class="fas fa-user"></i> ${orcamento.clienteNome} • <i class="fas fa-calendar"></i> ${dataStr}</p>
+                        <p style="font-size: 0.9rem; color: var(--success); font-weight: bold; margin-top: 5px;">
+                            <i class="fas fa-money-bill-wave"></i> R$ ${orcamento.valor.toFixed(2)}
+                        </p>
+                        <span class="status status-${orcamento.status}">${orcamento.status}</span>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="icon-btn view" onclick="viewOrcamento(${orcamento.id})" title="Visualizar">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn edit" onclick="editOrcamento(${orcamento.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn whatsapp" onclick="sendWhatsAppOrcamento(${orcamento.id})" title="Enviar WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+
+        function editOrcamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                if (request.result) {
+                    showOrcamentoForm(request.result);
+                }
+            };
+        }
+
+        function viewOrcamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const orcamento = request.result;
+                if (!orcamento) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(orcamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    document.getElementById('modalTitle').textContent = `Orçamento #${orcamento.id}`;
+                    
+                    const data = new Date(orcamento.data);
+                    const dataStr = data.toLocaleDateString('pt-BR');
+                    
+                    const validadeData = new Date(data);
+                    validadeData.setDate(validadeData.getDate() + orcamento.validade);
+                    const validadeStr = validadeData.toLocaleDateString('pt-BR');
+                    
+                    const viewHTML = `
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: var(--primary); margin-bottom: 10px;">${clienteInfo.nome || 'Cliente não encontrado'}</h3>
+                            <p><i class="fas fa-calendar"></i> <strong>Data:</strong> ${dataStr}</p>
+                            <p><i class="fas fa-clock"></i> <strong>Validade:</strong> ${validadeStr} (${orcamento.validade} dias)</p>
+                            <p><strong>Status:</strong> <span class="status status-${orcamento.status}">${orcamento.status}</span></p>
+                            ${clienteInfo.telefone ? `<p><i class="fas fa-phone"></i> <strong>Telefone:</strong> ${clienteInfo.telefone}</p>` : ''}
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Serviços</h4>
+                            <p style="white-space: pre-line; background: var(--light-gray); padding: 15px; border-radius: var(--radius-sm);">${orcamento.servicos}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Valor Total</h4>
+                            <p style="font-size: 1.8rem; color: var(--success); font-weight: bold; text-align: center;">
+                                <i class="fas fa-money-bill-wave"></i> R$ ${orcamento.valor.toFixed(2)}
+                            </p>
+                        </div>
+                        
+                        ${orcamento.observacoes ? `
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Observações</h4>
+                            <p>${orcamento.observacoes}</p>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    const footerHTML = `
+                        <button type="button" class="btn btn-danger" onclick="closeModal()">Fechar</button>
+                        <button type="button" class="btn btn-success" onclick="downloadPDF('orcamento', ${orcamento.id})">
+                            <i class="fas fa-download"></i> PDF
+                        </button>
+                        <button type="button" class="btn" style="background-color: #25D366; color: white;" onclick="sendWhatsAppOrcamento(${orcamento.id})">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    `;
+                    
+                    document.getElementById('modalBody').innerHTML = viewHTML;
+                    document.getElementById('modalFooter').innerHTML = footerHTML;
+                    
+                    openModal();
+                };
+            };
+        }
+
+        function sendWhatsAppOrcamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const orcamento = request.result;
+                if (!orcamento) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(orcamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    if (!clienteInfo.telefone) {
+                        showToast('Cliente não tem telefone cadastrado', 'warning');
+                        return;
+                    }
+                    
+                    const data = new Date(orcamento.data);
+                    const dataStr = data.toLocaleDateString('pt-BR');
+                    
+                    const validadeData = new Date(data);
+                    validadeData.setDate(validadeData.getDate() + orcamento.validade);
+                    const validadeStr = validadeData.toLocaleDateString('pt-BR');
+                    
+                    // Criar mensagem para WhatsApp
+                    const message = `*CleanSoft - Orçamento #${orcamento.id}*
+
+Olá ${clienteInfo.nome}, segue seu orçamento:
+
+*Serviços:*
+${orcamento.servicos}
+
+*Valor:* R$ ${orcamento.valor.toFixed(2)}
+*Data:* ${dataStr}
+*Validade:* ${validadeStr}
+
+${orcamento.observacoes ? `*Observações:*\n${orcamento.observacoes}\n\n` : ''}
+Agradecemos a preferência!
+CleanSoft - Lavagem a Seco`;
+
+                    // Codificar mensagem para URL
+                    const encodedMessage = encodeURIComponent(message);
+                    const phone = clienteInfo.telefone.replace(/\D/g, '');
+                    const whatsappUrl = `https://wa.me/55${phone}?text=${encodedMessage}`;
+                    
+                    // Abrir WhatsApp
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Atualizar status para "Enviado"
+                    orcamento.status = 'enviado';
+                    const updateTransaction = db.transaction(['orcamentos'], 'readwrite');
+                    const updateStore = updateTransaction.objectStore('orcamentos');
+                    updateStore.put(orcamento);
+                    
+                    showToast('Orçamento enviado por WhatsApp', 'success');
+                    addAtividade('orcamento', 'Orçamento enviado por WhatsApp', clienteInfo.nome, 'enviado');
+                    loadOrcamentos();
+                };
+            };
+        }
+
+        // ========== ORDENS DE SERVIÇO ==========
+        function showOrdemForm(ordem = null) {
+            editingId = ordem ? ordem.id : null;
+            
+            document.getElementById('modalTitle').textContent = ordem ? 'Editar Ordem de Serviço' : 'Nova Ordem de Serviço';
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Carregar clientes
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                const clientes = request.result || [];
+                const clientesOptions = clientes.map(c => 
+                    `<option value="${c.id}" ${ordem && ordem.clienteId == c.id ? 'selected' : ''}>${c.nome}</option>`
+                ).join('');
+                
+                const hoje = new Date().toISOString().split('T')[0];
+                const prazoPadrao = ordem ? ordem.dataPrazo : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                
+                const formHTML = `
+                    <div class="form-group">
+                        <label for="ordemClienteId">Cliente *</label>
+                        <select id="ordemClienteId" class="form-control" required>
+                            <option value="">Selecione um cliente</option>
+                            ${clientesOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemServicos">Serviços *</label>
+                        <textarea id="ordemServicos" class="form-control" placeholder="Descreva os serviços a serem realizados" required rows="3">${ordem ? ordem.servicos : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemValor">Valor (R$) *</label>
+                        <input type="number" id="ordemValor" class="form-control" step="0.01" min="0" value="${ordem ? ordem.valor : ''}" placeholder="0,00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemPrioridade">Prioridade *</label>
+                        <select id="ordemPrioridade" class="form-control" required>
+                            <option value="alta" ${ordem && ordem.prioridade === 'alta' ? 'selected' : ''}>Alta</option>
+                            <option value="media" ${ordem && ordem.prioridade === 'media' ? 'selected' : (ordem ? '' : 'selected')}>Média</option>
+                            <option value="baixa" ${ordem && ordem.prioridade === 'baixa' ? 'selected' : ''}>Baixa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemStatus">Status *</label>
+                        <select id="ordemStatus" class="form-control" required>
+                            <option value="pendente" ${ordem && ordem.status === 'pendente' ? 'selected' : 'selected'}>Pendente</option>
+                            <option value="andamento" ${ordem && ordem.status === 'andamento' ? 'selected' : ''}>Em Andamento</option>
+                            <option value="concluido" ${ordem && ordem.status === 'concluido' ? 'selected' : ''}>Concluído</option>
+                            <option value="cancelado" ${ordem && ordem.status === 'cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemDataPrazo">Prazo de Conclusão *</label>
+                        <input type="date" id="ordemDataPrazo" class="form-control" value="${prazoPadrao}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ordemObservacoes">Observações</label>
+                        <textarea id="ordemObservacoes" class="form-control" placeholder="Observações adicionais">${ordem ? ordem.observacoes || '' : ''}</textarea>
+                    </div>
+                `;
+                
+                const footerHTML = `
+                    <button type="button" class="btn btn-danger" onclick="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="saveOrdem()">Salvar</button>
+                `;
+                
+                document.getElementById('modalBody').innerHTML = formHTML;
+                document.getElementById('modalFooter').innerHTML = footerHTML;
+                
+                openModal();
+            };
+        }
+
+        function saveOrdem() {
+            const clienteId = document.getElementById('ordemClienteId').value;
+            const servicos = document.getElementById('ordemServicos').value.trim();
+            const valor = parseFloat(document.getElementById('ordemValor').value) || 0;
+            const prioridade = document.getElementById('ordemPrioridade').value;
+            const status = document.getElementById('ordemStatus').value;
+            const dataPrazo = document.getElementById('ordemDataPrazo').value;
+            const observacoes = document.getElementById('ordemObservacoes').value.trim();
+            
+            // Validação
+            if (!clienteId || !servicos || valor <= 0 || !dataPrazo) {
+                showToast('Preencha todos os campos obrigatórios', 'warning');
+                return;
+            }
+            
+            const ordem = {
+                clienteId: parseInt(clienteId),
+                servicos: servicos,
+                valor: valor,
+                prioridade: prioridade,
+                status: status,
+                dataPrazo: dataPrazo,
+                observacoes: observacoes,
+                dataCriacao: new Date().toISOString()
+            };
+            
+            if (editingId) {
+                ordem.id = editingId;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Primeiro buscar nome do cliente
+            const clienteTransaction = db.transaction(['clientes'], 'readonly');
+            const clienteStore = clienteTransaction.objectStore('clientes');
+            const clienteRequest = clienteStore.get(parseInt(clienteId));
+            
+            clienteRequest.onsuccess = function() {
+                const clienteNome = clienteRequest.result ? clienteRequest.result.nome : '';
+                
+                const transaction = db.transaction(['ordens'], 'readwrite');
+                const store = transaction.objectStore('ordens');
+                
+                const request = editingId ? store.put(ordem) : store.add(ordem);
+                
+                request.onsuccess = function() {
+                    showToast('Ordem salva com sucesso!', 'success');
+                    closeModal();
+                    loadOrdens();
+                    loadDashboardData();
+                    
+                    addAtividade('ordem', editingId ? 'Ordem atualizada' : 'Nova ordem criada', clienteNome, ordem.status);
+                };
+                
+                request.onerror = function() {
+                    showToast('Erro ao salvar ordem', 'error');
+                };
+            };
+        }
+
+        function loadOrdens() {
+            if (!db) {
+                setTimeout(loadOrdens, 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                let ordens = request.result || [];
+                
+                // Aplicar filtros
+                const statusFilter = document.getElementById('filterStatusOrdem')?.value || '';
+                const prioridadeFilter = document.getElementById('filterPrioridadeOrdem')?.value || '';
+                
+                if (statusFilter) {
+                    ordens = ordens.filter(o => o.status === statusFilter);
+                }
+                
+                if (prioridadeFilter) {
+                    ordens = ordens.filter(o => o.prioridade === prioridadeFilter);
+                }
+                
+                // Ordenar por prioridade e data
+                ordens.sort((a, b) => {
+                    const priorityOrder = { alta: 3, media: 2, baixa: 1 };
+                    const priorityDiff = (priorityOrder[b.prioridade] || 0) - (priorityOrder[a.prioridade] || 0);
+                    if (priorityDiff !== 0) return priorityDiff;
+                    return new Date(b.dataCriacao) - new Date(a.dataCriacao);
+                });
+                
+                // Buscar nomes dos clientes
+                Promise.all(ordens.map(ordem => 
+                    new Promise(resolve => {
+                        const transaction = db.transaction(['clientes'], 'readonly');
+                        const store = transaction.objectStore('clientes');
+                        const request = store.get(ordem.clienteId);
+                        request.onsuccess = function() {
+                            ordem.clienteNome = request.result ? request.result.nome : 'Cliente não encontrado';
+                            resolve(ordem);
+                        };
+                        request.onerror = function() {
+                            ordem.clienteNome = 'Erro ao carregar';
+                            resolve(ordem);
+                        };
+                    })
+                )).then(ordensComNomes => {
+                    displayOrdens(ordensComNomes);
+                });
+            };
+        }
+
+        function displayOrdens(ordens) {
+            const container = document.getElementById('listaOrdens');
+            if (!container) return;
+            
+            if (!ordens || ordens.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Nenhuma ordem encontrada</p>
+                        <button class="btn btn-primary" onclick="showOrdemForm()" style="margin-top: 15px;">
+                            <i class="fas fa-plus"></i> Criar primeira ordem
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            ordens.forEach(ordem => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                
+                const dataCriacao = new Date(ordem.dataCriacao);
+                const dataStr = dataCriacao.toLocaleDateString('pt-BR');
+                
+                // Verificar se está atrasada
+                const hoje = new Date();
+                const prazo = new Date(ordem.dataPrazo);
+                const atrasada = prazo < hoje && ordem.status !== 'concluido';
+                
+                li.innerHTML = `
+                    <div class="list-item-content">
+                        <h3>Ordem #${ordem.id}</h3>
+                        <p><i class="fas fa-user"></i> ${ordem.clienteNome} • <i class="fas fa-calendar"></i> ${dataStr}</p>
+                        <p style="font-size: 0.9rem; color: var(--success); font-weight: bold; margin-top: 5px;">
+                            <i class="fas fa-money-bill-wave"></i> R$ ${ordem.valor.toFixed(2)}
+                        </p>
+                        <div style="display: flex; gap: 10px; margin-top: 5px;">
+                            <span class="status status-${ordem.status}">${ordem.status}</span>
+                            <span style="display: flex; align-items: center;">
+                                <span class="priority priority-${ordem.prioridade}"></span>
+                                ${ordem.prioridade}
+                            </span>
+                            ${atrasada ? '<span class="status status-cancelado" style="font-size: 0.7rem;">Atrasada</span>' : ''}
+                        </div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="icon-btn view" onclick="viewOrdem(${ordem.id})" title="Visualizar">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn edit" onclick="editOrdem(${ordem.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn" style="color: ${ordem.status === 'concluido' ? 'var(--success)' : 'var(--warning)'};" onclick="toggleOrdemStatus(${ordem.id})" title="${ordem.status === 'concluido' ? 'Reabrir' : 'Concluir'}">
+                            <i class="fas ${ordem.status === 'concluido' ? 'fa-redo' : 'fa-check'}"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+
+        function editOrdem(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                if (request.result) {
+                    showOrdemForm(request.result);
+                }
+            };
+        }
+
+        function viewOrdem(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const ordem = request.result;
+                if (!ordem) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(ordem.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    document.getElementById('modalTitle').textContent = `Ordem #${ordem.id}`;
+                    
+                    const dataCriacao = new Date(ordem.dataCriacao);
+                    const dataCriacaoStr = dataCriacao.toLocaleDateString('pt-BR');
+                    
+                    const hoje = new Date();
+                    const prazo = new Date(ordem.dataPrazo);
+                    const atrasada = prazo < hoje && ordem.status !== 'concluido';
+                    
+                    const viewHTML = `
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: var(--primary); margin-bottom: 10px;">${clienteInfo.nome || 'Cliente não encontrado'}</h3>
+                            <p><i class="fas fa-calendar-plus"></i> <strong>Criação:</strong> ${dataCriacaoStr}</p>
+                            <p><i class="fas fa-calendar-check"></i> <strong>Prazo:</strong> ${ordem.dataPrazo} ${atrasada ? '<span class="status status-cancelado" style="font-size: 0.7rem; margin-left: 5px;">Atrasada</span>' : ''}</p>
+                            <p><strong>Status:</strong> <span class="status status-${ordem.status}">${ordem.status}</span></p>
+                            <p><strong>Prioridade:</strong> <span class="priority priority-${ordem.prioridade}"></span> ${ordem.prioridade}</p>
+                            ${clienteInfo.telefone ? `<p><i class="fas fa-phone"></i> <strong>Telefone:</strong> ${clienteInfo.telefone}</p>` : ''}
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Serviços</h4>
+                            <p style="white-space: pre-line; background: var(--light-gray); padding: 15px; border-radius: var(--radius-sm);">${ordem.servicos}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Valor Total</h4>
+                            <p style="font-size: 1.8rem; color: var(--success); font-weight: bold; text-align: center;">
+                                <i class="fas fa-money-bill-wave"></i> R$ ${ordem.valor.toFixed(2)}
+                            </p>
+                        </div>
+                        
+                        ${ordem.observacoes ? `
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Observações</h4>
+                            <p>${ordem.observacoes}</p>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    const footerHTML = `
+                        <button type="button" class="btn btn-danger" onclick="closeModal()">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="editOrdem(${ordem.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button type="button" class="btn ${ordem.status === 'concluido' ? 'btn-warning' : 'btn-success'}" onclick="toggleOrdemStatus(${ordem.id})">
+                            <i class="fas ${ordem.status === 'concluido' ? 'fa-redo' : 'fa-check'}"></i> ${ordem.status === 'concluido' ? 'Reabrir' : 'Concluir'}
+                        </button>
+                    `;
+                    
+                    document.getElementById('modalBody').innerHTML = viewHTML;
+                    document.getElementById('modalFooter').innerHTML = footerHTML;
+                    
+                    openModal();
+                };
+            };
+        }
+
+        function toggleOrdemStatus(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readwrite');
+            const store = transaction.objectStore('ordens');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const ordem = request.result;
+                if (!ordem) return;
+                
+                // Buscar nome do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(ordem.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    if (ordem.status === 'concluido') {
+                        ordem.status = 'pendente';
+                        ordem.dataConclusao = null;
+                        showToast('Ordem reaberta', 'info');
+                        addAtividade('ordem', 'Ordem reaberta', clienteInfo.nome, 'pendente');
+                    } else {
+                        ordem.status = 'concluido';
+                        ordem.dataConclusao = new Date().toISOString();
+                        showToast('Ordem concluída!', 'success');
+                        addAtividade('ordem', 'Ordem concluída', clienteInfo.nome, 'concluido');
+                    }
+                    
+                    store.put(ordem).onsuccess = function() {
+                        closeModal();
+                        loadOrdens();
+                        loadDashboardData();
+                    };
+                };
+            };
+        }
+
+        // ========== AGENDAMENTOS ==========
+        function showAgendamentoForm(agendamento = null) {
+            editingId = agendamento ? agendamento.id : null;
+            
+            document.getElementById('modalTitle').textContent = agendamento ? 'Editar Agendamento' : 'Novo Agendamento';
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Carregar clientes
+            const transaction = db.transaction(['clientes'], 'readonly');
+            const store = transaction.objectStore('clientes');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                const clientes = request.result || [];
+                const clientesOptions = clientes.map(c => 
+                    `<option value="${c.id}" ${agendamento && agendamento.clienteId == c.id ? 'selected' : ''}>${c.nome}</option>`
+                ).join('');
+                
+                const hoje = new Date().toISOString().split('T')[0];
+                const amanha = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                const dataAtual = agendamento ? agendamento.data : amanha;
+                const horaAtual = agendamento ? agendamento.hora : '09:00';
+                
+                // Gerar opções de horário
+                let timeOptions = '';
+                for (let hour = 8; hour <= 18; hour++) {
+                    for (let minute = 0; minute < 60; minute += 30) {
+                        const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                        timeOptions += `<option value="${time}" ${time === horaAtual ? 'selected' : ''}>${time}</option>`;
+                    }
+                }
+                
+                const formHTML = `
+                    <div class="form-group">
+                        <label for="agendamentoClienteId">Cliente *</label>
+                        <select id="agendamentoClienteId" class="form-control" required>
+                            <option value="">Selecione um cliente</option>
+                            ${clientesOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoData">Data *</label>
+                        <input type="date" id="agendamentoData" class="form-control" value="${dataAtual}" required min="${hoje}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoHora">Hora *</label>
+                        <select id="agendamentoHora" class="form-control" required>
+                            <option value="">Selecione um horário</option>
+                            ${timeOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoServicos">Serviços *</label>
+                        <textarea id="agendamentoServicos" class="form-control" placeholder="Descreva os serviços agendados" required rows="3">${agendamento ? agendamento.servicos : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoDuracao">Duração Estimada (horas) *</label>
+                        <input type="number" id="agendamentoDuracao" class="form-control" min="1" max="8" value="${agendamento ? agendamento.duracao || 1 : 1}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoStatus">Status</label>
+                        <select id="agendamentoStatus" class="form-control">
+                            <option value="agendado" ${agendamento && agendamento.status === 'agendado' ? 'selected' : 'selected'}>Agendado</option>
+                            <option value="confirmado" ${agendamento && agendamento.status === 'confirmado' ? 'selected' : ''}>Confirmado</option>
+                            <option value="concluido" ${agendamento && agendamento.status === 'concluido' ? 'selected' : ''}>Concluído</option>
+                            <option value="cancelado" ${agendamento && agendamento.status === 'cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoObservacoes">Observações</label>
+                        <textarea id="agendamentoObservacoes" class="form-control" placeholder="Observações adicionais">${agendamento ? agendamento.observacoes || '' : ''}</textarea>
+                    </div>
+                `;
+                
+                const footerHTML = `
+                    <button type="button" class="btn btn-danger" onclick="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="saveAgendamento()">Salvar</button>
+                `;
+                
+                document.getElementById('modalBody').innerHTML = formHTML;
+                document.getElementById('modalFooter').innerHTML = footerHTML;
+                
+                openModal();
+            };
+        }
+
+        function saveAgendamento() {
+            const clienteId = document.getElementById('agendamentoClienteId').value;
+            const data = document.getElementById('agendamentoData').value;
+            const hora = document.getElementById('agendamentoHora').value;
+            const servicos = document.getElementById('agendamentoServicos').value.trim();
+            const duracao = parseInt(document.getElementById('agendamentoDuracao').value) || 1;
+            const status = document.getElementById('agendamentoStatus').value;
+            const observacoes = document.getElementById('agendamentoObservacoes').value.trim();
+            
+            // Validação
+            if (!clienteId || !data || !hora || !servicos) {
+                showToast('Preencha todos os campos obrigatórios', 'warning');
+                return;
+            }
+            
+            const agendamento = {
+                clienteId: parseInt(clienteId),
+                data: data,
+                hora: hora,
+                servicos: servicos,
+                duracao: duracao,
+                status: status,
+                observacoes: observacoes,
+                dataCriacao: new Date().toISOString()
+            };
+            
+            if (editingId) {
+                agendamento.id = editingId;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Primeiro buscar nome do cliente
+            const clienteTransaction = db.transaction(['clientes'], 'readonly');
+            const clienteStore = clienteTransaction.objectStore('clientes');
+            const clienteRequest = clienteStore.get(parseInt(clienteId));
+            
+            clienteRequest.onsuccess = function() {
+                const clienteNome = clienteRequest.result ? clienteRequest.result.nome : '';
+                
+                const transaction = db.transaction(['agendamentos'], 'readwrite');
+                const store = transaction.objectStore('agendamentos');
+                
+                const request = editingId ? store.put(agendamento) : store.add(agendamento);
+                
+                request.onsuccess = function() {
+                    showToast('Agendamento salvo com sucesso!', 'success');
+                    closeModal();
+                    loadAgendamentos();
+                    loadDashboardData();
+                    
+                    addAtividade('agendamento', editingId ? 'Agendamento atualizado' : 'Novo agendamento criado', clienteNome, agendamento.status);
+                };
+                
+                request.onerror = function() {
+                    showToast('Erro ao salvar agendamento', 'error');
+                };
+            };
+        }
+
+        function loadAgendamentos() {
+            if (!db) {
+                setTimeout(loadAgendamentos, 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['agendamentos'], 'readonly');
+            const store = transaction.objectStore('agendamentos');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                let agendamentos = request.result || [];
+                
+                // Aplicar filtros
+                const statusFilter = document.getElementById('filterStatusAgendamento')?.value || '';
+                const dataFilter = document.getElementById('filterDataAgendamento')?.value || '';
+                
+                if (statusFilter) {
+                    agendamentos = agendamentos.filter(a => a.status === statusFilter);
+                }
+                
+                if (dataFilter) {
+                    agendamentos = agendamentos.filter(a => a.data === dataFilter);
+                }
+                
+                // Ordenar por data e hora
+                agendamentos.sort((a, b) => {
+                    const dateA = new Date(a.data + 'T' + a.hora);
+                    const dateB = new Date(b.data + 'T' + b.hora);
+                    return dateA - dateB;
+                });
+                
+                // Buscar nomes dos clientes
+                Promise.all(agendamentos.map(agendamento => 
+                    new Promise(resolve => {
+                        const transaction = db.transaction(['clientes'], 'readonly');
+                        const store = transaction.objectStore('clientes');
+                        const request = store.get(agendamento.clienteId);
+                        request.onsuccess = function() {
+                            agendamento.clienteNome = request.result ? request.result.nome : 'Cliente não encontrado';
+                            resolve(agendamento);
+                        };
+                        request.onerror = function() {
+                            agendamento.clienteNome = 'Erro ao carregar';
+                            resolve(agendamento);
+                        };
+                    })
+                )).then(agendamentosComNomes => {
+                    displayAgendamentos(agendamentosComNomes);
+                });
+            };
+        }
+
+        function displayAgendamentos(agendamentos) {
+            const container = document.getElementById('listaAgendamentos');
+            if (!container) return;
+            
+            if (!agendamentos || agendamentos.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>Nenhum agendamento encontrado</p>
+                        <button class="btn btn-primary" onclick="showAgendamentoForm()" style="margin-top: 15px;">
+                            <i class="fas fa-plus"></i> Criar primeiro agendamento
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            agendamentos.forEach(agendamento => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                
+                // Formatar data
+                const data = new Date(agendamento.data);
+                const dataStr = data.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' });
+                
+                li.innerHTML = `
+                    <div class="list-item-content">
+                        <h3>${agendamento.clienteNome}</h3>
+                        <p><i class="fas fa-calendar"></i> ${dataStr} • <i class="fas fa-clock"></i> ${agendamento.hora} (${agendamento.duracao}h)</p>
+                        <p style="font-size: 0.9rem; color: var(--gray); margin-top: 5px;">${agendamento.servicos.substring(0, 40)}${agendamento.servicos.length > 40 ? '...' : ''}</p>
+                        <span class="status status-${agendamento.status}">${agendamento.status}</span>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="icon-btn view" onclick="viewAgendamento(${agendamento.id})" title="Visualizar">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn edit" onclick="editAgendamento(${agendamento.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn" style="color: ${agendamento.status === 'confirmado' ? 'var(--success)' : 'var(--secondary)'};" onclick="toggleConfirmacaoAgendamento(${agendamento.id})" title="${agendamento.status === 'confirmado' ? 'Desconfirmar' : 'Confirmar'}">
+                            <i class="fas ${agendamento.status === 'confirmado' ? 'fa-times' : 'fa-check'}"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+
+        function editAgendamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['agendamentos'], 'readonly');
+            const store = transaction.objectStore('agendamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                if (request.result) {
+                    showAgendamentoForm(request.result);
+                }
+            };
+        }
+
+        function viewAgendamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['agendamentos'], 'readonly');
+            const store = transaction.objectStore('agendamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const agendamento = request.result;
+                if (!agendamento) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(agendamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    document.getElementById('modalTitle').textContent = `Agendamento #${agendamento.id}`;
+                    
+                    const data = new Date(agendamento.data);
+                    const dataStr = data.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+                    
+                    const viewHTML = `
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: var(--primary); margin-bottom: 10px;">${clienteInfo.nome || 'Cliente não encontrado'}</h3>
+                            <p><i class="fas fa-calendar"></i> <strong>Data:</strong> ${dataStr}</p>
+                            <p><i class="fas fa-clock"></i> <strong>Hora:</strong> ${agendamento.hora}</p>
+                            <p><i class="fas fa-hourglass-half"></i> <strong>Duração:</strong> ${agendamento.duracao} hora${agendamento.duracao > 1 ? 's' : ''}</p>
+                            <p><strong>Status:</strong> <span class="status status-${agendamento.status}">${agendamento.status}</span></p>
+                            ${clienteInfo.telefone ? `<p><i class="fas fa-phone"></i> <strong>Telefone:</strong> ${clienteInfo.telefone}</p>` : ''}
+                            ${clienteInfo.endereco ? `<p><i class="fas fa-map-marker-alt"></i> <strong>Endereço:</strong> ${clienteInfo.endereco}</p>` : ''}
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Serviços Agendados</h4>
+                            <p style="white-space: pre-line; background: var(--light-gray); padding: 15px; border-radius: var(--radius-sm);">${agendamento.servicos}</p>
+                        </div>
+                        
+                        ${agendamento.observacoes ? `
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Observações</h4>
+                            <p>${agendamento.observacoes}</p>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    const footerHTML = `
+                        <button type="button" class="btn btn-danger" onclick="closeModal()">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="editAgendamento(${agendamento.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button type="button" class="btn ${agendamento.status === 'confirmado' ? 'btn-warning' : 'btn-success'}" onclick="toggleConfirmacaoAgendamento(${agendamento.id})">
+                            <i class="fas ${agendamento.status === 'confirmado' ? 'fa-times' : 'fa-check'}"></i> ${agendamento.status === 'confirmado' ? 'Desconfirmar' : 'Confirmar'}
+                        </button>
+                    `;
+                    
+                    document.getElementById('modalBody').innerHTML = viewHTML;
+                    document.getElementById('modalFooter').innerHTML = footerHTML;
+                    
+                    openModal();
+                };
+            };
+        }
+
+        function toggleConfirmacaoAgendamento(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['agendamentos'], 'readwrite');
+            const store = transaction.objectStore('agendamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const agendamento = request.result;
+                if (!agendamento) return;
+                
+                // Buscar nome do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(agendamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    if (agendamento.status === 'confirmado') {
+                        agendamento.status = 'agendado';
+                        showToast('Agendamento desconfirmado', 'info');
+                        addAtividade('agendamento', 'Agendamento desconfirmado', clienteInfo.nome, 'agendado');
+                    } else {
+                        agendamento.status = 'confirmado';
+                        showToast('Agendamento confirmado!', 'success');
+                        addAtividade('agendamento', 'Agendamento confirmado', clienteInfo.nome, 'confirmado');
+                    }
+                    
+                    store.put(agendamento).onsuccess = function() {
+                        closeModal();
+                        loadAgendamentos();
+                        loadDashboardData();
+                    };
+                };
+            };
+        }
+
+        // ========== ATIVIDADES ==========
+        function addAtividade(tipo, descricao, clienteNome = '', status = '') {
+            if (!db) return;
+            
+            const atividade = {
+                tipo: tipo,
+                descricao: descricao,
+                clienteNome: clienteNome,
+                status: status,
+                data: new Date().toISOString()
+            };
+            
+            const transaction = db.transaction(['atividades'], 'readwrite');
+            const store = transaction.objectStore('atividades');
+            store.add(atividade);
+            
+            // Atualizar lista de atividades
+            loadRecentActivities();
+        }
+
+        function loadRecentActivities() {
+            if (!db) {
+                setTimeout(loadRecentActivities, 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['atividades'], 'readonly');
+            const store = transaction.objectStore('atividades');
+            const index = store.index('data');
+            
+            const request = index.openCursor(null, 'prev');
+            const atividades = [];
+            
+            request.onsuccess = function(event) {
+                const cursor = event.target.result;
+                if (cursor && atividades.length < 10) {
+                    atividades.push(cursor.value);
+                    cursor.continue();
+                } else {
+                    displayRecentActivities(atividades);
+                }
+            };
+        }
+
+        function displayRecentActivities(atividades) {
+            const container = document.getElementById('recentActivities');
+            if (!container) return;
+            
+            if (!atividades || atividades.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clock"></i>
+                        <p>Nenhuma atividade recente</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            atividades.forEach(atividade => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                
+                // Icone baseado no tipo
+                let icon = '';
+                let iconClass = '';
+                switch(atividade.tipo) {
+                    case 'cliente': 
+                        icon = 'fa-user';
+                        iconClass = 'text-primary';
+                        break;
+                    case 'orcamento': 
+                        icon = 'fa-file-invoice-dollar';
+                        iconClass = 'text-success';
+                        break;
+                    case 'ordem': 
+                        icon = 'fa-clipboard-check';
+                        iconClass = 'text-warning';
+                        break;
+                    case 'agendamento': 
+                        icon = 'fa-calendar-alt';
+                        iconClass = 'text-info';
+                        break;
+                    default:
+                        icon = 'fa-bell';
+                }
+                
+                // Formatar data
+                const data = new Date(atividade.data);
+                const hora = data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                const dataStr = data.toLocaleDateString('pt-BR');
+                
+                li.innerHTML = `
+                    <div class="list-item-content">
+                        <h3>${atividade.descricao}</h3>
+                        <p>${atividade.clienteNome ? 'Cliente: ' + atividade.clienteNome : ''} • ${dataStr} ${hora}</p>
+                        ${atividade.status ? `<span class="status status-${atividade.status}" style="font-size: 0.7rem; margin-top: 5px;">${atividade.status}</span>` : ''}
+                    </div>
+                    <div><i class="fas ${icon} ${iconClass}"></i></div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+
+        // ========== FUNÇÕES DE EXPORTAÇÃO/PDF ==========
+        function downloadPDF(tipo, id) {
+            if (tipo === 'orcamento') {
+                downloadOrcamentoPDF(id);
+            }
+        }
+
+        async function downloadOrcamentoPDF(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.get(id);
+            
+            request.onsuccess = async function() {
+                const orcamento = request.result;
+                if (!orcamento) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(orcamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    // Usar jsPDF para gerar o PDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    // Cabeçalho
+                    doc.setFontSize(16);
+                    doc.setTextColor(44, 62, 80);
+                    doc.text('CleanSoft - Lavagem a Seco', 105, 20, { align: 'center' });
+                    
+                    doc.setFontSize(14);
+                    doc.setTextColor(52, 152, 219);
+                    doc.text(`ORÇAMENTO #${orcamento.id}`, 105, 30, { align: 'center' });
+                    
+                    // Informações do cliente
+                    doc.setFontSize(10);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(`Cliente: ${clienteInfo.nome || ''}`, 20, 50);
+                    if (clienteInfo.endereco) {
+                        doc.text(`Endereço: ${clienteInfo.endereco}`, 20, 57);
+                    }
+                    if (clienteInfo.telefone) {
+                        doc.text(`Telefone: ${clienteInfo.telefone}`, 20, 64);
+                    }
+                    
+                    // Serviços
+                    doc.setFontSize(12);
+                    doc.text('Serviços:', 20, 80);
+                    doc.setFontSize(10);
+                    const servicosLines = doc.splitTextToSize(orcamento.servicos, 170);
+                    doc.text(servicosLines, 20, 87);
+                    
+                    // Valor
+                    const servicosHeight = servicosLines.length * 5;
+                    const valorY = 87 + servicosHeight + 10;
+                    
+                    doc.setFontSize(12);
+                    doc.text('Valor Total:', 20, valorY);
+                    doc.setFontSize(16);
+                    doc.setTextColor(39, 174, 96);
+                    doc.text(`R$ ${orcamento.valor.toFixed(2)}`, 60, valorY);
+                    
+                    // Salvar PDF
+                    doc.save(`orcamento_${orcamento.id}.pdf`);
+                    
+                    showToast('PDF gerado com sucesso', 'success');
+                    addAtividade('orcamento', 'PDF do orçamento gerado', clienteInfo.nome);
+                };
+            };
+        }
+
+        // ========== NOTIFICAÇÕES TOAST ==========
+        function showToast(message, type = 'info') {
+            // Remover toasts anteriores
+            const existingToasts = document.querySelectorAll('.toast-notification');
+            existingToasts.forEach(toast => toast.remove());
+            
+            // Criar elemento toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: var(--radius-sm);
+                box-shadow: var(--shadow);
+                z-index: 9999;
+                font-weight: 500;
+                max-width: 90%;
+                text-align: center;
+                animation: slideDown 0.3s ease;
+            `;
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                toast.style.animation = 'slideUp 0.3s ease';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Adicionar animações CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { top: 80px; opacity: 0; }
+                to { top: 100px; opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { top: 100px; opacity: 1; }
+                to { top: 80px; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
