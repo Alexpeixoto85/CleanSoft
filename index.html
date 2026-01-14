@@ -68,6 +68,14 @@
             color: var(--secondary);
         }
 
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: white;
+        }
+
         .logo h1 {
             font-size: 1.3rem;
             font-weight: 600;
@@ -150,7 +158,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Stats Cards */
+        /* Stats Cards - Agora clicáveis */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -165,7 +173,15 @@
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            transition: transform 0.2s;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .stat-card:active {
@@ -215,6 +231,12 @@
             transition: all 0.2s;
             border: none;
             width: 100%;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .action-btn:active {
@@ -268,6 +290,10 @@
             gap: 8px;
             transition: all 0.2s;
             cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
         }
 
         .btn:active {
@@ -341,8 +367,12 @@
             transition: background-color 0.2s;
         }
 
-        .icon-btn:active {
+        .icon-btn:hover {
             background-color: #f0f0f0;
+        }
+
+        .icon-btn:active {
+            background-color: #e0e0e0;
         }
 
         .icon-btn.edit {
@@ -505,8 +535,12 @@
             border-radius: 50%;
         }
 
-        .close-modal:active {
+        .close-modal:hover {
             background-color: #f0f0f0;
+        }
+
+        .close-modal:active {
+            background-color: #e0e0e0;
         }
 
         .modal-body {
@@ -553,6 +587,11 @@
             cursor: pointer;
             z-index: 999;
             transition: all 0.2s;
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
         }
 
         .fab:active {
@@ -621,6 +660,127 @@
             background-color: var(--success);
         }
 
+        /* Configurações */
+        .settings-section {
+            margin-bottom: 25px;
+        }
+
+        .settings-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .logo-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius);
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .backup-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .backup-option {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .backup-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .backup-option i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .backup-option h4 {
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .backup-option p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Toast Notifications */
+        .toast-notification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            z-index: 9999;
+            font-weight: 500;
+            max-width: 90%;
+            text-align: center;
+            animation: slideDown 0.3s ease;
+        }
+
+        .toast-notification.error {
+            background: var(--accent);
+        }
+
+        .toast-notification.warning {
+            background: var(--warning);
+        }
+
+        .toast-notification.info {
+            background: var(--secondary);
+        }
+
+        @keyframes slideDown {
+            from { top: 80px; opacity: 0; }
+            to { top: 100px; opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { top: 100px; opacity: 1; }
+            to { top: 80px; opacity: 0; }
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 380px) {
             .stats-grid {
@@ -637,6 +797,10 @@
             
             .filter-bar {
                 flex-direction: column;
+            }
+            
+            .backup-options {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -659,10 +823,13 @@
     <header class="app-header">
         <div class="header-top">
             <div class="logo">
-                <div class="logo-icon">
+                <div id="logoPreview" class="logo-icon">
                     <i class="fas fa-soap"></i>
                 </div>
-                <h1>Clean<span>Soft</span></h1>
+                <div>
+                    <h1 id="empresaNome">Clean<span>Soft</span></h1>
+                    <div id="empresaSlogan" style="font-size: 0.8rem; opacity: 0.8;">Lavagem a Seco</div>
+                </div>
             </div>
             <div class="date-time">
                 <div id="currentDate">--/--/----</div>
@@ -676,9 +843,9 @@
     <main class="main-content">
         <!-- Dashboard -->
         <section id="dashboard" class="page active">
-            <!-- Stats -->
+            <!-- Stats Cards Clicáveis -->
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card" onclick="showPage('clientes')">
                     <div class="stat-icon" style="background-color: #e3f2fd; color: var(--secondary);">
                         <i class="fas fa-users"></i>
                     </div>
@@ -687,7 +854,7 @@
                         <p>Clientes</p>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showPage('orcamentos')">
                     <div class="stat-icon" style="background-color: #e8f5e9; color: var(--success);">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
@@ -696,7 +863,7 @@
                         <p>Orçamentos</p>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showPage('ordens')">
                     <div class="stat-icon" style="background-color: #fff3e0; color: var(--warning);">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
@@ -705,7 +872,7 @@
                         <p>Ordens</p>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showPage('agendamentos')">
                     <div class="stat-icon" style="background-color: #fce4ec; color: #e91e63;">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
@@ -759,7 +926,7 @@
         <!-- Clientes -->
         <section id="clientes" class="page">
             <div class="search-box">
-                <input type="text" id="searchCliente" class="search-input" placeholder="Buscar clientes..." oninput="loadClientes()">
+                <input type="text" id="searchCliente" class="search-input" placeholder="Buscar clientes...">
                 <i class="fas fa-search search-icon"></i>
             </div>
             <div class="card">
@@ -781,14 +948,14 @@
         <!-- Orçamentos -->
         <section id="orcamentos" class="page">
             <div class="filter-bar">
-                <select id="filterStatusOrcamento" class="filter-select" onchange="loadOrcamentos()">
+                <select id="filterStatusOrcamento" class="filter-select">
                     <option value="">Todos os status</option>
                     <option value="pendente">Pendente</option>
                     <option value="aprovado">Aprovado</option>
                     <option value="recusado">Recusado</option>
                     <option value="enviado">Enviado</option>
                 </select>
-                <select id="filterClienteOrcamento" class="filter-select" onchange="loadOrcamentos()">
+                <select id="filterClienteOrcamento" class="filter-select">
                     <option value="">Todos os clientes</option>
                 </select>
             </div>
@@ -811,14 +978,14 @@
         <!-- Ordens -->
         <section id="ordens" class="page">
             <div class="filter-bar">
-                <select id="filterStatusOrdem" class="filter-select" onchange="loadOrdens()">
+                <select id="filterStatusOrdem" class="filter-select">
                     <option value="">Todos os status</option>
                     <option value="pendente">Pendente</option>
                     <option value="andamento">Em Andamento</option>
                     <option value="concluido">Concluído</option>
                     <option value="cancelado">Cancelado</option>
                 </select>
-                <select id="filterPrioridadeOrdem" class="filter-select" onchange="loadOrdens()">
+                <select id="filterPrioridadeOrdem" class="filter-select">
                     <option value="">Todas as prioridades</option>
                     <option value="alta">Alta</option>
                     <option value="media">Média</option>
@@ -844,14 +1011,14 @@
         <!-- Agendamentos -->
         <section id="agendamentos" class="page">
             <div class="filter-bar">
-                <select id="filterStatusAgendamento" class="filter-select" onchange="loadAgendamentos()">
+                <select id="filterStatusAgendamento" class="filter-select">
                     <option value="">Todos os status</option>
                     <option value="agendado">Agendado</option>
                     <option value="confirmado">Confirmado</option>
                     <option value="concluido">Concluído</option>
                     <option value="cancelado">Cancelado</option>
                 </select>
-                <input type="date" id="filterDataAgendamento" class="filter-select" onchange="loadAgendamentos()">
+                <input type="date" id="filterDataAgendamento" class="filter-select">
             </div>
             <div class="card">
                 <div class="card-header">
@@ -866,6 +1033,126 @@
                         <p>Carregando agendamentos...</p>
                     </div>
                 </ul>
+            </div>
+        </section>
+
+        <!-- Configurações -->
+        <section id="configuracoes" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configurações</h2>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Informações da Empresa</h3>
+                    <form id="empresaForm">
+                        <div class="form-group">
+                            <label for="empresaNomeInput">Nome da Empresa *</label>
+                            <input type="text" id="empresaNomeInput" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresaSloganInput">Slogan</label>
+                            <input type="text" id="empresaSloganInput" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresaTelefoneInput">Telefone</label>
+                            <input type="tel" id="empresaTelefoneInput" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresaEmailInput">E-mail</label>
+                            <input type="email" id="empresaEmailInput" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresaEnderecoInput">Endereço</label>
+                            <textarea id="empresaEnderecoInput" class="form-control" rows="2"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresaCNPJInput">CNPJ</label>
+                            <input type="text" id="empresaCNPJInput" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Logo da Empresa</label>
+                            <div class="file-input-wrapper">
+                                <button type="button" class="btn btn-outline">
+                                    <i class="fas fa-upload"></i> Escolher Logo
+                                </button>
+                                <input type="file" id="logoUpload" accept="image/*" onchange="previewLogo(event)">
+                            </div>
+                            <div id="logoPreviewContainer" style="display: none;">
+                                <img id="logoPreviewImg" class="logo-preview" src="" alt="Logo Preview">
+                                <button type="button" class="btn btn-danger" onclick="removeLogo()" style="margin-top: 10px;">
+                                    <i class="fas fa-trash"></i> Remover Logo
+                                </button>
+                            </div>
+                            <small style="color: var(--gray);">Tamanho recomendado: 400x400px</small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            <i class="fas fa-save"></i> Salvar Informações
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Backup & Restauração</h3>
+                    <p style="margin-bottom: 20px; color: var(--gray);">Faça backup dos seus dados ou restaure de um backup anterior.</p>
+                    
+                    <div class="backup-options">
+                        <div class="backup-option" onclick="exportBackup()">
+                            <i class="fas fa-file-export"></i>
+                            <h4>Exportar Backup</h4>
+                            <p>Salve todos os dados em um arquivo JSON</p>
+                        </div>
+                        
+                        <div class="backup-option" onclick="importBackup()">
+                            <i class="fas fa-file-import"></i>
+                            <h4>Importar Backup</h4>
+                            <p>Restaurar dados de um arquivo JSON</p>
+                        </div>
+                        
+                        <div class="backup-option" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel"></i>
+                            <h4>Exportar para Excel</h4>
+                            <p>Exportar dados em formato Excel</p>
+                        </div>
+                        
+                        <div class="backup-option" onclick="clearAllData()">
+                            <i class="fas fa-trash-alt"></i>
+                            <h4>Limpar Dados</h4>
+                            <p>Remover todos os dados do sistema</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #f8f9fa; border-radius: var(--radius-sm);">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Informações do Banco de Dados</h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Clientes:</span>
+                            <span id="dbClientesCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Orçamentos:</span>
+                            <span id="dbOrcamentosCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Ordens:</span>
+                            <span id="dbOrdensCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Agendamentos:</span>
+                            <span id="dbAgendamentosCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
+                            <strong>Total:</strong>
+                            <strong id="dbTotalCount">0 registros</strong>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -892,6 +1179,10 @@
             <i class="fas fa-calendar-alt"></i>
             <span>Agenda</span>
         </a>
+        <a href="#" class="nav-item" data-page="configuracoes">
+            <i class="fas fa-cog"></i>
+            <span>Config</span>
+        </a>
     </nav>
 
     <!-- Floating Action Button (contextual) -->
@@ -915,13 +1206,26 @@
         </div>
     </div>
 
+    <!-- Input de arquivo para importação -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script>
         // Variáveis globais
         let db;
         let currentPage = 'dashboard';
         let editingId = null;
         let currentFabAction = null;
+        let empresaInfo = {
+            nome: 'CleanSoft',
+            slogan: 'Lavagem a Seco',
+            telefone: '',
+            email: '',
+            endereco: '',
+            cnpj: '',
+            logo: null
+        };
 
         // Inicializar o app quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', function() {
@@ -931,11 +1235,12 @@
             setupNavigation();
             setupFab();
             setupEventListeners();
+            loadEmpresaInfo();
         });
 
         // Inicializar IndexedDB
         function initDB() {
-            const request = indexedDB.open('CleanSoftMobileDB', 3);
+            const request = indexedDB.open('CleanSoftMobileDB', 4);
             
             request.onerror = function(event) {
                 console.error('Erro ao abrir banco de dados:', event.target.error);
@@ -953,10 +1258,12 @@
                 loadOrdens();
                 loadAgendamentos();
                 loadFilterOptions();
+                updateDatabaseStats();
             };
             
             request.onupgradeneeded = function(event) {
                 const db = event.target.result;
+                const oldVersion = event.oldVersion;
                 
                 // Criar object stores
                 if (!db.objectStoreNames.contains('clientes')) {
@@ -992,9 +1299,378 @@
                     const store = db.createObjectStore('atividades', { keyPath: 'id', autoIncrement: true });
                     store.createIndex('data', 'data', { unique: false });
                 }
+                
+                if (!db.objectStoreNames.contains('empresa')) {
+                    db.createObjectStore('empresa', { keyPath: 'id' });
+                }
+                
+                // Migração de dados se necessário
+                if (oldVersion > 0) {
+                    console.log('Migrando banco de dados da versão', oldVersion, 'para', db.version);
+                }
             };
         }
 
+        // ========== FUNÇÕES DA EMPRESA ==========
+        function loadEmpresaInfo() {
+            if (!db) {
+                setTimeout(loadEmpresaInfo, 100);
+                return;
+            }
+            
+            const transaction = db.transaction(['empresa'], 'readonly');
+            const store = transaction.objectStore('empresa');
+            const request = store.get('info');
+            
+            request.onsuccess = function() {
+                if (request.result) {
+                    empresaInfo = request.result.data;
+                    
+                    // Atualizar interface
+                    document.getElementById('empresaNome').innerHTML = empresaInfo.nome.replace('Soft', '<span>Soft</span>');
+                    document.getElementById('empresaSlogan').textContent = empresaInfo.slogan || 'Lavagem a Seco';
+                    
+                    // Preencher formulário
+                    document.getElementById('empresaNomeInput').value = empresaInfo.nome;
+                    document.getElementById('empresaSloganInput').value = empresaInfo.slogan || '';
+                    document.getElementById('empresaTelefoneInput').value = empresaInfo.telefone || '';
+                    document.getElementById('empresaEmailInput').value = empresaInfo.email || '';
+                    document.getElementById('empresaEnderecoInput').value = empresaInfo.endereco || '';
+                    document.getElementById('empresaCNPJInput').value = empresaInfo.cnpj || '';
+                    
+                    // Carregar logo se existir
+                    if (empresaInfo.logo) {
+                        document.getElementById('logoPreviewContainer').style.display = 'block';
+                        document.getElementById('logoPreviewImg').src = empresaInfo.logo;
+                        document.getElementById('logoPreview').innerHTML = `<img src="${empresaInfo.logo}" class="logo-img">`;
+                    }
+                }
+                
+                // Configurar formulário
+                document.getElementById('empresaForm').onsubmit = function(e) {
+                    e.preventDefault();
+                    saveEmpresaInfo();
+                };
+            };
+        }
+
+        function saveEmpresaInfo() {
+            empresaInfo.nome = document.getElementById('empresaNomeInput').value.trim();
+            empresaInfo.slogan = document.getElementById('empresaSloganInput').value.trim();
+            empresaInfo.telefone = document.getElementById('empresaTelefoneInput').value.trim();
+            empresaInfo.email = document.getElementById('empresaEmailInput').value.trim();
+            empresaInfo.endereco = document.getElementById('empresaEnderecoInput').value.trim();
+            empresaInfo.cnpj = document.getElementById('empresaCNPJInput').value.trim();
+            
+            if (!empresaInfo.nome) {
+                showToast('O nome da empresa é obrigatório', 'warning');
+                return;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const transaction = db.transaction(['empresa'], 'readwrite');
+            const store = transaction.objectStore('empresa');
+            const request = store.put({
+                id: 'info',
+                data: empresaInfo,
+                updatedAt: new Date().toISOString()
+            });
+            
+            request.onsuccess = function() {
+                // Atualizar header
+                document.getElementById('empresaNome').innerHTML = empresaInfo.nome.replace('Soft', '<span>Soft</span>');
+                document.getElementById('empresaSlogan').textContent = empresaInfo.slogan || 'Lavagem a Seco';
+                
+                showToast('Informações da empresa salvas com sucesso!', 'success');
+            };
+            
+            request.onerror = function() {
+                showToast('Erro ao salvar informações da empresa', 'error');
+            };
+        }
+
+        function previewLogo(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                empresaInfo.logo = e.target.result;
+                document.getElementById('logoPreviewContainer').style.display = 'block';
+                document.getElementById('logoPreviewImg').src = empresaInfo.logo;
+                document.getElementById('logoPreview').innerHTML = `<img src="${empresaInfo.logo}" class="logo-img">`;
+                
+                // Salvar automaticamente
+                saveEmpresaInfo();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeLogo() {
+            empresaInfo.logo = null;
+            document.getElementById('logoPreviewContainer').style.display = 'none';
+            document.getElementById('logoPreview').innerHTML = `<i class="fas fa-soap"></i>`;
+            saveEmpresaInfo();
+        }
+
+        // ========== BACKUP & RESTAURAÇÃO ==========
+        function exportBackup() {
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const backupData = {
+                version: '1.0',
+                exportDate: new Date().toISOString(),
+                empresa: empresaInfo
+            };
+            
+            // Coletar todos os dados
+            const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos', 'atividades', 'empresa'];
+            let completed = 0;
+            
+            stores.forEach(storeName => {
+                const transaction = db.transaction([storeName], 'readonly');
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+                
+                request.onsuccess = function() {
+                    backupData[storeName] = request.result || [];
+                    completed++;
+                    
+                    if (completed === stores.length) {
+                        // Criar arquivo JSON
+                        const dataStr = JSON.stringify(backupData, null, 2);
+                        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                        
+                        // Criar link de download
+                        const exportFileDefaultName = `cleansoft_backup_${new Date().toISOString().split('T')[0]}.json`;
+                        const linkElement = document.createElement('a');
+                        linkElement.setAttribute('href', dataUri);
+                        linkElement.setAttribute('download', exportFileDefaultName);
+                        linkElement.click();
+                        
+                        showToast('Backup exportado com sucesso!', 'success');
+                    }
+                };
+            });
+        }
+
+        function importBackup() {
+            document.getElementById('importFileInput').click();
+            document.getElementById('importFileInput').onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const backupData = JSON.parse(event.target.result);
+                        
+                        if (!confirm(`Esta ação irá substituir todos os dados atuais. ${backupData.clientes ? backupData.clientes.length : 0} clientes, ${backupData.orcamentos ? backupData.orcamentos.length : 0} orçamentos e outros registros serão importados. Continuar?`)) {
+                            return;
+                        }
+                        
+                        restoreBackup(backupData);
+                    } catch (error) {
+                        showToast('Erro ao ler arquivo de backup', 'error');
+                        console.error(error);
+                    }
+                };
+                reader.readAsText(file);
+            };
+        }
+
+        function restoreBackup(backupData) {
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            // Restaurar empresa info se existir
+            if (backupData.empresa) {
+                empresaInfo = backupData.empresa;
+                
+                const transaction = db.transaction(['empresa'], 'readwrite');
+                const store = transaction.objectStore('empresa');
+                store.put({
+                    id: 'info',
+                    data: empresaInfo,
+                    updatedAt: new Date().toISOString()
+                });
+                
+                // Atualizar interface
+                setTimeout(() => {
+                    loadEmpresaInfo();
+                }, 500);
+            }
+            
+            // Restaurar dados de cada store
+            const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos', 'atividades'];
+            let completed = 0;
+            let totalImported = 0;
+            
+            stores.forEach(storeName => {
+                if (backupData[storeName]) {
+                    const transaction = db.transaction([storeName], 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    
+                    // Limpar store existente
+                    store.clear();
+                    
+                    // Adicionar novos dados
+                    backupData[storeName].forEach(item => {
+                        store.add(item);
+                        totalImported++;
+                    });
+                    
+                    transaction.oncomplete = function() {
+                        completed++;
+                        if (completed === stores.length) {
+                            showToast(`Backup restaurado com sucesso! ${totalImported} registros importados.`, 'success');
+                            
+                            // Recarregar dados
+                            setTimeout(() => {
+                                loadDashboardData();
+                                loadClientes();
+                                loadOrcamentos();
+                                loadOrdens();
+                                loadAgendamentos();
+                                updateDatabaseStats();
+                            }, 1000);
+                        }
+                    };
+                    
+                    transaction.onerror = function() {
+                        completed++;
+                        console.error(`Erro ao restaurar ${storeName}`);
+                    };
+                } else {
+                    completed++;
+                }
+            });
+        }
+
+        function exportToExcel() {
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const workbook = XLSX.utils.book_new();
+            const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos'];
+            let completed = 0;
+            
+            stores.forEach(storeName => {
+                const transaction = db.transaction([storeName], 'readonly');
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+                
+                request.onsuccess = function() {
+                    const data = request.result || [];
+                    
+                    if (data.length > 0) {
+                        // Converter para worksheet
+                        const worksheet = XLSX.utils.json_to_sheet(data.map(item => {
+                            // Limpar dados para Excel
+                            const cleanItem = {};
+                            for (const key in item) {
+                                if (key !== 'id' && typeof item[key] !== 'object') {
+                                    cleanItem[key] = item[key];
+                                }
+                            }
+                            return cleanItem;
+                        }));
+                        
+                        XLSX.utils.book_append_sheet(workbook, worksheet, storeName);
+                    }
+                    
+                    completed++;
+                    
+                    if (completed === stores.length) {
+                        // Gerar arquivo Excel
+                        XLSX.writeFile(workbook, `cleansoft_dados_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        showToast('Dados exportados para Excel com sucesso!', 'success');
+                    }
+                };
+            });
+        }
+
+        function clearAllData() {
+            if (!confirm('ATENÇÃO: Esta ação irá remover TODOS os dados do sistema (clientes, orçamentos, ordens, agendamentos). Esta ação não pode ser desfeita. Continuar?')) {
+                return;
+            }
+            
+            if (!db) {
+                showToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos', 'atividades'];
+            let completed = 0;
+            
+            stores.forEach(storeName => {
+                const transaction = db.transaction([storeName], 'readwrite');
+                const store = transaction.objectStore(storeName);
+                store.clear();
+                
+                transaction.oncomplete = function() {
+                    completed++;
+                    if (completed === stores.length) {
+                        showToast('Todos os dados foram removidos.', 'info');
+                        
+                        // Recarregar dados
+                        setTimeout(() => {
+                            loadDashboardData();
+                            loadClientes();
+                            loadOrcamentos();
+                            loadOrdens();
+                            loadAgendamentos();
+                            updateDatabaseStats();
+                        }, 500);
+                    }
+                };
+            });
+        }
+
+        function updateDatabaseStats() {
+            if (!db) return;
+            
+            const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos'];
+            let total = 0;
+            
+            stores.forEach((storeName, index) => {
+                const transaction = db.transaction([storeName], 'readonly');
+                const store = transaction.objectStore(storeName);
+                const request = store.count();
+                
+                request.onsuccess = function() {
+                    const count = request.result;
+                    total += count;
+                    
+                    // Atualizar elemento específico
+                    const elementId = 'db' + storeName.charAt(0).toUpperCase() + storeName.slice(1) + 'Count';
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = count;
+                    }
+                    
+                    // Se for o último, atualizar total
+                    if (index === stores.length - 1) {
+                        setTimeout(() => {
+                            document.getElementById('dbTotalCount').textContent = total + ' registros';
+                        }, 100);
+                    }
+                };
+            });
+        }
+
+        // ========== FUNÇÕES EXISTENTES (ATUALIZADAS) ==========
         // Atualizar data e hora
         function updateDateTime() {
             try {
@@ -1060,6 +1736,14 @@
                     loadClientes(this.value);
                 });
             }
+            
+            // Filtros
+            document.getElementById('filterStatusOrcamento')?.addEventListener('change', loadOrcamentos);
+            document.getElementById('filterClienteOrcamento')?.addEventListener('change', loadOrcamentos);
+            document.getElementById('filterStatusOrdem')?.addEventListener('change', loadOrdens);
+            document.getElementById('filterPrioridadeOrdem')?.addEventListener('change', loadOrdens);
+            document.getElementById('filterStatusAgendamento')?.addEventListener('change', loadAgendamentos);
+            document.getElementById('filterDataAgendamento')?.addEventListener('change', loadAgendamentos);
         }
 
         // Atualizar FAB baseado na página atual
@@ -1087,6 +1771,10 @@
                     fab.style.display = 'flex';
                     fab.innerHTML = '<i class="fas fa-calendar-plus"></i>';
                     currentFabAction = showAgendamentoForm;
+                    break;
+                case 'configuracoes':
+                    fab.style.display = 'none';
+                    currentFabAction = null;
                     break;
                 default:
                     fab.style.display = 'none';
@@ -1123,6 +1811,9 @@
                         break;
                     case 'agendamentos':
                         loadAgendamentos();
+                        break;
+                    case 'configuracoes':
+                        updateDatabaseStats();
                         break;
                 }
             }
@@ -1311,6 +2002,7 @@
                 loadClientes();
                 loadDashboardData();
                 loadFilterOptions();
+                updateDatabaseStats();
                 
                 // Adicionar atividade
                 addAtividade('cliente', editingId ? 'Cliente atualizado' : 'Novo cliente cadastrado', cliente.nome);
@@ -1425,6 +2117,7 @@
                 loadClientes();
                 loadDashboardData();
                 loadFilterOptions();
+                updateDatabaseStats();
                 addAtividade('cliente', 'Cliente excluído');
             };
         }
@@ -1494,6 +2187,9 @@
                 const footerHTML = `
                     <button type="button" class="btn btn-danger" onclick="closeModal()">Cancelar</button>
                     <button type="button" class="btn btn-success" onclick="saveOrcamento()">Salvar</button>
+                    ${orcamento ? `<button type="button" class="btn btn-primary" onclick="converterParaOrdem(${orcamento.id})">
+                        <i class="fas fa-exchange-alt"></i> Converter para Ordem
+                    </button>` : ''}
                 `;
                 
                 document.getElementById('modalBody').innerHTML = formHTML;
@@ -1554,12 +2250,70 @@
                     closeModal();
                     loadOrcamentos();
                     loadDashboardData();
+                    updateDatabaseStats();
                     
                     addAtividade('orcamento', editingId ? 'Orçamento atualizado' : 'Novo orçamento criado', clienteNome, orcamento.status);
                 };
                 
                 request.onerror = function() {
                     showToast('Erro ao salvar orçamento', 'error');
+                };
+            };
+        }
+
+        function converterParaOrdem(orcamentoId) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['orcamentos'], 'readonly');
+            const store = transaction.objectStore('orcamentos');
+            const request = store.get(orcamentoId);
+            
+            request.onsuccess = function() {
+                const orcamento = request.result;
+                if (!orcamento) return;
+                
+                // Criar ordem a partir do orçamento
+                const ordem = {
+                    clienteId: orcamento.clienteId,
+                    servicos: orcamento.servicos,
+                    valor: orcamento.valor,
+                    prioridade: 'media',
+                    status: 'pendente',
+                    dataPrazo: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    observacoes: `Convertido do orçamento #${orcamento.id}\n${orcamento.observacoes || ''}`,
+                    dataCriacao: new Date().toISOString(),
+                    orcamentoId: orcamento.id
+                };
+                
+                // Buscar nome do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(orcamento.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteNome = clienteRequest.result ? clienteRequest.result.nome : '';
+                    
+                    // Salvar a ordem
+                    const ordemTransaction = db.transaction(['ordens'], 'readwrite');
+                    const ordemStore = ordemTransaction.objectStore('ordens');
+                    const ordemRequest = ordemStore.add(ordem);
+                    
+                    ordemRequest.onsuccess = function() {
+                        // Atualizar status do orçamento para "aprovado"
+                        orcamento.status = 'aprovado';
+                        const updateTransaction = db.transaction(['orcamentos'], 'readwrite');
+                        const updateStore = updateTransaction.objectStore('orcamentos');
+                        updateStore.put(orcamento);
+                        
+                        showToast('Orçamento convertido para ordem de serviço!', 'success');
+                        closeModal();
+                        loadOrcamentos();
+                        loadOrdens();
+                        loadDashboardData();
+                        updateDatabaseStats();
+                        
+                        addAtividade('ordem', 'Ordem criada a partir de orçamento', clienteNome, 'pendente');
+                    };
                 };
             };
         }
@@ -1744,6 +2498,9 @@
                         <button type="button" class="btn" style="background-color: #25D366; color: white;" onclick="sendWhatsAppOrcamento(${orcamento.id})">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </button>
+                        <button type="button" class="btn btn-primary" onclick="converterParaOrdem(${orcamento.id})">
+                            <i class="fas fa-exchange-alt"></i> Ordem
+                        </button>
                     `;
                     
                     document.getElementById('modalBody').innerHTML = viewHTML;
@@ -1786,7 +2543,7 @@
                     const validadeStr = validadeData.toLocaleDateString('pt-BR');
                     
                     // Criar mensagem para WhatsApp
-                    const message = `*CleanSoft - Orçamento #${orcamento.id}*
+                    const message = `*${empresaInfo.nome} - Orçamento #${orcamento.id}*
 
 Olá ${clienteInfo.nome}, segue seu orçamento:
 
@@ -1799,7 +2556,7 @@ ${orcamento.servicos}
 
 ${orcamento.observacoes ? `*Observações:*\n${orcamento.observacoes}\n\n` : ''}
 Agradecemos a preferência!
-CleanSoft - Lavagem a Seco`;
+${empresaInfo.nome}${empresaInfo.slogan ? ' - ' + empresaInfo.slogan : ''}`;
 
                     // Codificar mensagem para URL
                     const encodedMessage = encodeURIComponent(message);
@@ -1961,6 +2718,7 @@ CleanSoft - Lavagem a Seco`;
                     closeModal();
                     loadOrdens();
                     loadDashboardData();
+                    updateDatabaseStats();
                     
                     addAtividade('ordem', editingId ? 'Ordem atualizada' : 'Nova ordem criada', clienteNome, ordem.status);
                 };
@@ -2082,6 +2840,9 @@ CleanSoft - Lavagem a Seco`;
                         <button class="icon-btn" style="color: ${ordem.status === 'concluido' ? 'var(--success)' : 'var(--warning)'};" onclick="toggleOrdemStatus(${ordem.id})" title="${ordem.status === 'concluido' ? 'Reabrir' : 'Concluir'}">
                             <i class="fas ${ordem.status === 'concluido' ? 'fa-redo' : 'fa-check'}"></i>
                         </button>
+                        <button class="icon-btn whatsapp" onclick="sendWhatsAppOrdem(${ordem.id})" title="Enviar WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
                     </div>
                 `;
                 
@@ -2169,12 +2930,74 @@ CleanSoft - Lavagem a Seco`;
                         <button type="button" class="btn ${ordem.status === 'concluido' ? 'btn-warning' : 'btn-success'}" onclick="toggleOrdemStatus(${ordem.id})">
                             <i class="fas ${ordem.status === 'concluido' ? 'fa-redo' : 'fa-check'}"></i> ${ordem.status === 'concluido' ? 'Reabrir' : 'Concluir'}
                         </button>
+                        <button type="button" class="btn" style="background-color: #25D366; color: white;" onclick="sendWhatsAppOrdem(${ordem.id})">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
                     `;
                     
                     document.getElementById('modalBody').innerHTML = viewHTML;
                     document.getElementById('modalFooter').innerHTML = footerHTML;
                     
                     openModal();
+                };
+            };
+        }
+
+        function sendWhatsAppOrdem(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.get(id);
+            
+            request.onsuccess = function() {
+                const ordem = request.result;
+                if (!ordem) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(ordem.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    if (!clienteInfo.telefone) {
+                        showToast('Cliente não tem telefone cadastrado', 'warning');
+                        return;
+                    }
+                    
+                    const dataCriacao = new Date(ordem.dataCriacao);
+                    const dataStr = dataCriacao.toLocaleDateString('pt-BR');
+                    
+                    // Criar mensagem para WhatsApp
+                    const message = `*${empresaInfo.nome} - Ordem de Serviço #${ordem.id}*
+
+Olá ${clienteInfo.nome}, segue a sua ordem de serviço:
+
+*Serviços:*
+${ordem.servicos}
+
+*Valor:* R$ ${ordem.valor.toFixed(2)}
+*Data:* ${dataStr}
+*Status:* ${ordem.status}
+*Prazo:* ${ordem.dataPrazo}
+*Prioridade:* ${ordem.prioridade}
+
+${ordem.observacoes ? `*Observações:*\n${ordem.observacoes}\n\n` : ''}
+Agradecemos a preferência!
+${empresaInfo.nome}${empresaInfo.slogan ? ' - ' + empresaInfo.slogan : ''}`;
+
+                    // Codificar mensagem para URL
+                    const encodedMessage = encodeURIComponent(message);
+                    const phone = clienteInfo.telefone.replace(/\D/g, '');
+                    const whatsappUrl = `https://wa.me/55${phone}?text=${encodedMessage}`;
+                    
+                    // Abrir WhatsApp
+                    window.open(whatsappUrl, '_blank');
+                    
+                    showToast('Ordem enviada por WhatsApp', 'success');
+                    addAtividade('ordem', 'Ordem enviada por WhatsApp', clienteInfo.nome, ordem.status);
                 };
             };
         }
@@ -2241,6 +3064,23 @@ CleanSoft - Lavagem a Seco`;
                     `<option value="${c.id}" ${agendamento && agendamento.clienteId == c.id ? 'selected' : ''}>${c.nome}</option>`
                 ).join('');
                 
+                // Carregar ordens em aberto para o cliente selecionado
+                const ordensAbertas = [];
+                if (agendamento && agendamento.clienteId) {
+                    const ordemTransaction = db.transaction(['ordens'], 'readonly');
+                    const ordemStore = ordemTransaction.objectStore('ordens');
+                    const ordemRequest = ordemStore.getAll();
+                    
+                    ordemRequest.onsuccess = function() {
+                        const todasOrdens = ordemRequest.result || [];
+                        ordensAbertas.push(...todasOrdens.filter(o => 
+                            o.clienteId == agendamento.clienteId && 
+                            o.status !== 'concluido' && 
+                            o.status !== 'cancelado'
+                        ));
+                    };
+                }
+                
                 const hoje = new Date().toISOString().split('T')[0];
                 const amanha = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
                 const dataAtual = agendamento ? agendamento.data : amanha;
@@ -2258,10 +3098,19 @@ CleanSoft - Lavagem a Seco`;
                 const formHTML = `
                     <div class="form-group">
                         <label for="agendamentoClienteId">Cliente *</label>
-                        <select id="agendamentoClienteId" class="form-control" required>
+                        <select id="agendamentoClienteId" class="form-control" required onchange="carregarOrdensCliente(this.value)">
                             <option value="">Selecione um cliente</option>
                             ${clientesOptions}
                         </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agendamentoOrdemId">Ordem Relacionada (opcional)</label>
+                        <select id="agendamentoOrdemId" class="form-control">
+                            <option value="">Nenhuma ordem</option>
+                            ${agendamento && agendamento.ordemId ? `<option value="${agendamento.ordemId}" selected>Ordem #${agendamento.ordemId}</option>` : ''}
+                        </select>
+                        <small style="color: var(--gray);">Selecione uma ordem em aberto para vincular ao agendamento</small>
                     </div>
                     
                     <div class="form-group">
@@ -2312,11 +3161,42 @@ CleanSoft - Lavagem a Seco`;
                 document.getElementById('modalFooter').innerHTML = footerHTML;
                 
                 openModal();
+                
+                // Carregar ordens se já tiver cliente selecionado
+                if (agendamento && agendamento.clienteId) {
+                    setTimeout(() => carregarOrdensCliente(agendamento.clienteId), 300);
+                }
+            };
+        }
+
+        function carregarOrdensCliente(clienteId) {
+            if (!clienteId || !db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.getAll();
+            
+            request.onsuccess = function() {
+                const todasOrdens = request.result || [];
+                const ordensCliente = todasOrdens.filter(o => 
+                    o.clienteId == clienteId && 
+                    o.status !== 'concluido' && 
+                    o.status !== 'cancelado'
+                );
+                
+                const selectOrdem = document.getElementById('agendamentoOrdemId');
+                if (selectOrdem) {
+                    selectOrdem.innerHTML = '<option value="">Nenhuma ordem</option>';
+                    ordensCliente.forEach(ordem => {
+                        selectOrdem.innerHTML += `<option value="${ordem.id}">Ordem #${ordem.id} - ${ordem.servicos.substring(0, 30)}${ordem.servicos.length > 30 ? '...' : ''}</option>`;
+                    });
+                }
             };
         }
 
         function saveAgendamento() {
             const clienteId = document.getElementById('agendamentoClienteId').value;
+            const ordemId = document.getElementById('agendamentoOrdemId').value;
             const data = document.getElementById('agendamentoData').value;
             const hora = document.getElementById('agendamentoHora').value;
             const servicos = document.getElementById('agendamentoServicos').value.trim();
@@ -2332,6 +3212,7 @@ CleanSoft - Lavagem a Seco`;
             
             const agendamento = {
                 clienteId: parseInt(clienteId),
+                ordemId: ordemId ? parseInt(ordemId) : null,
                 data: data,
                 hora: hora,
                 servicos: servicos,
@@ -2368,6 +3249,7 @@ CleanSoft - Lavagem a Seco`;
                     closeModal();
                     loadAgendamentos();
                     loadDashboardData();
+                    updateDatabaseStats();
                     
                     addAtividade('agendamento', editingId ? 'Agendamento atualizado' : 'Novo agendamento criado', clienteNome, agendamento.status);
                 };
@@ -2418,7 +3300,22 @@ CleanSoft - Lavagem a Seco`;
                         const request = store.get(agendamento.clienteId);
                         request.onsuccess = function() {
                             agendamento.clienteNome = request.result ? request.result.nome : 'Cliente não encontrado';
-                            resolve(agendamento);
+                            
+                            // Buscar info da ordem se houver
+                            if (agendamento.ordemId) {
+                                const ordemTransaction = db.transaction(['ordens'], 'readonly');
+                                const ordemStore = ordemTransaction.objectStore('ordens');
+                                const ordemRequest = ordemStore.get(agendamento.ordemId);
+                                ordemRequest.onsuccess = function() {
+                                    agendamento.ordemInfo = ordemRequest.result;
+                                    resolve(agendamento);
+                                };
+                                ordemRequest.onerror = function() {
+                                    resolve(agendamento);
+                                };
+                            } else {
+                                resolve(agendamento);
+                            }
                         };
                         request.onerror = function() {
                             agendamento.clienteNome = 'Erro ao carregar';
@@ -2463,6 +3360,7 @@ CleanSoft - Lavagem a Seco`;
                         <h3>${agendamento.clienteNome}</h3>
                         <p><i class="fas fa-calendar"></i> ${dataStr} • <i class="fas fa-clock"></i> ${agendamento.hora} (${agendamento.duracao}h)</p>
                         <p style="font-size: 0.9rem; color: var(--gray); margin-top: 5px;">${agendamento.servicos.substring(0, 40)}${agendamento.servicos.length > 40 ? '...' : ''}</p>
+                        ${agendamento.ordemId ? `<p style="font-size: 0.8rem; color: var(--secondary); margin-top: 5px;"><i class="fas fa-clipboard-list"></i> Ordem #${agendamento.ordemId}</p>` : ''}
                         <span class="status status-${agendamento.status}">${agendamento.status}</span>
                     </div>
                     <div class="list-item-actions">
@@ -2529,6 +3427,7 @@ CleanSoft - Lavagem a Seco`;
                             <p><strong>Status:</strong> <span class="status status-${agendamento.status}">${agendamento.status}</span></p>
                             ${clienteInfo.telefone ? `<p><i class="fas fa-phone"></i> <strong>Telefone:</strong> ${clienteInfo.telefone}</p>` : ''}
                             ${clienteInfo.endereco ? `<p><i class="fas fa-map-marker-alt"></i> <strong>Endereço:</strong> ${clienteInfo.endereco}</p>` : ''}
+                            ${agendamento.ordemId ? `<p><i class="fas fa-clipboard-list"></i> <strong>Ordem Relacionada:</strong> #${agendamento.ordemId}</p>` : ''}
                         </div>
                         
                         <div style="margin-bottom: 20px;">
@@ -2710,6 +3609,8 @@ CleanSoft - Lavagem a Seco`;
         function downloadPDF(tipo, id) {
             if (tipo === 'orcamento') {
                 downloadOrcamentoPDF(id);
+            } else if (tipo === 'ordem') {
+                downloadOrdemPDF(id);
             }
         }
 
@@ -2736,48 +3637,244 @@ CleanSoft - Lavagem a Seco`;
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
                     
-                    // Cabeçalho
+                    // Configurações da página
+                    const pageWidth = doc.internal.pageSize.width;
+                    const margin = 20;
+                    
+                    // Cabeçalho com informações da empresa
+                    doc.setFontSize(18);
+                    doc.setTextColor(44, 62, 80);
+                    doc.text(empresaInfo.nome, pageWidth / 2, 20, { align: 'center' });
+                    
+                    if (empresaInfo.slogan) {
+                        doc.setFontSize(12);
+                        doc.setTextColor(52, 152, 219);
+                        doc.text(empresaInfo.slogan, pageWidth / 2, 28, { align: 'center' });
+                    }
+                    
+                    // Linha separadora
+                    doc.setDrawColor(52, 152, 219);
+                    doc.setLineWidth(1);
+                    doc.line(margin, 35, pageWidth - margin, 35);
+                    
+                    // Título do documento
                     doc.setFontSize(16);
                     doc.setTextColor(44, 62, 80);
-                    doc.text('CleanSoft - Lavagem a Seco', 105, 20, { align: 'center' });
-                    
-                    doc.setFontSize(14);
-                    doc.setTextColor(52, 152, 219);
-                    doc.text(`ORÇAMENTO #${orcamento.id}`, 105, 30, { align: 'center' });
+                    doc.text(`ORÇAMENTO #${orcamento.id}`, pageWidth / 2, 45, { align: 'center' });
                     
                     // Informações do cliente
-                    doc.setFontSize(10);
+                    doc.setFontSize(11);
                     doc.setTextColor(0, 0, 0);
-                    doc.text(`Cliente: ${clienteInfo.nome || ''}`, 20, 50);
+                    doc.text(`Cliente: ${clienteInfo.nome || ''}`, margin, 60);
                     if (clienteInfo.endereco) {
-                        doc.text(`Endereço: ${clienteInfo.endereco}`, 20, 57);
+                        doc.text(`Endereço: ${clienteInfo.endereco}`, margin, 67);
                     }
                     if (clienteInfo.telefone) {
-                        doc.text(`Telefone: ${clienteInfo.telefone}`, 20, 64);
+                        doc.text(`Telefone: ${clienteInfo.telefone}`, margin, 74);
+                    }
+                    
+                    // Informações da empresa
+                    let empresaY = 60;
+                    if (empresaInfo.telefone) {
+                        doc.text(`Telefone: ${empresaInfo.telefone}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
+                    }
+                    if (empresaInfo.email) {
+                        doc.text(`Email: ${empresaInfo.email}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
+                    }
+                    if (empresaInfo.cnpj) {
+                        doc.text(`CNPJ: ${empresaInfo.cnpj}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
+                    }
+                    
+                    // Data e validade
+                    const data = new Date(orcamento.data);
+                    const dataStr = data.toLocaleDateString('pt-BR');
+                    const validadeData = new Date(data);
+                    validadeData.setDate(validadeData.getDate() + orcamento.validade);
+                    const validadeStr = validadeData.toLocaleDateString('pt-BR');
+                    
+                    doc.text(`Data: ${dataStr}`, margin, 85);
+                    doc.text(`Validade: ${validadeStr} (${orcamento.validade} dias)`, margin, 92);
+                    
+                    // Serviços
+                    doc.setFontSize(12);
+                    doc.text('DESCRIÇÃO DOS SERVIÇOS', margin, 105);
+                    
+                    doc.setFontSize(10);
+                    doc.setDrawColor(200, 200, 200);
+                    doc.setLineWidth(0.5);
+                    doc.line(margin, 107, pageWidth - margin, 107);
+                    
+                    const servicosLines = doc.splitTextToSize(orcamento.servicos, pageWidth - 2 * margin);
+                    doc.text(servicosLines, margin, 115);
+                    
+                    // Valor
+                    const servicosHeight = servicosLines.length * 5;
+                    const valorY = 120 + servicosHeight;
+                    
+                    doc.setFontSize(12);
+                    doc.text('VALOR TOTAL', margin, valorY);
+                    
+                    doc.setFontSize(20);
+                    doc.setTextColor(39, 174, 96);
+                    doc.text(`R$ ${orcamento.valor.toFixed(2)}`, pageWidth - margin, valorY, { align: 'right' });
+                    
+                    // Observações
+                    if (orcamento.observacoes) {
+                        doc.setFontSize(12);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text('OBSERVAÇÕES', margin, valorY + 15);
+                        
+                        doc.setFontSize(10);
+                        const obsLines = doc.splitTextToSize(orcamento.observacoes, pageWidth - 2 * margin);
+                        doc.text(obsLines, margin, valorY + 23);
+                    }
+                    
+                    // Rodapé
+                    const footerY = doc.internal.pageSize.height - 20;
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Documento gerado em: ${new Date().toLocaleDateString('pt-BR')} ${new Date().toLocaleTimeString('pt-BR')}`, pageWidth / 2, footerY, { align: 'center' });
+                    
+                    // Salvar PDF
+                    doc.save(`orcamento_${orcamento.id}_${empresaInfo.nome.replace(/\s+/g, '_')}.pdf`);
+                    
+                    showToast('PDF gerado com sucesso', 'success');
+                    addAtividade('orcamento', 'PDF do orçamento gerado', clienteInfo.nome);
+                };
+            };
+        }
+
+        async function downloadOrdemPDF(id) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ordens'], 'readonly');
+            const store = transaction.objectStore('ordens');
+            const request = store.get(id);
+            
+            request.onsuccess = async function() {
+                const ordem = request.result;
+                if (!ordem) return;
+                
+                // Buscar informações do cliente
+                const clienteTransaction = db.transaction(['clientes'], 'readonly');
+                const clienteStore = clienteTransaction.objectStore('clientes');
+                const clienteRequest = clienteStore.get(ordem.clienteId);
+                
+                clienteRequest.onsuccess = function() {
+                    const clienteInfo = clienteRequest.result || {};
+                    
+                    // Usar jsPDF para gerar o PDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    // Configurações da página
+                    const pageWidth = doc.internal.pageSize.width;
+                    const margin = 20;
+                    
+                    // Cabeçalho com informações da empresa
+                    doc.setFontSize(18);
+                    doc.setTextColor(44, 62, 80);
+                    doc.text(empresaInfo.nome, pageWidth / 2, 20, { align: 'center' });
+                    
+                    if (empresaInfo.slogan) {
+                        doc.setFontSize(12);
+                        doc.setTextColor(52, 152, 219);
+                        doc.text(empresaInfo.slogan, pageWidth / 2, 28, { align: 'center' });
+                    }
+                    
+                    // Linha separadora
+                    doc.setDrawColor(52, 152, 219);
+                    doc.setLineWidth(1);
+                    doc.line(margin, 35, pageWidth - margin, 35);
+                    
+                    // Título do documento
+                    doc.setFontSize(16);
+                    doc.setTextColor(44, 62, 80);
+                    doc.text(`ORDEM DE SERVIÇO #${ordem.id}`, pageWidth / 2, 45, { align: 'center' });
+                    
+                    // Informações do cliente
+                    doc.setFontSize(11);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(`Cliente: ${clienteInfo.nome || ''}`, margin, 60);
+                    if (clienteInfo.endereco) {
+                        doc.text(`Endereço: ${clienteInfo.endereco}`, margin, 67);
+                    }
+                    if (clienteInfo.telefone) {
+                        doc.text(`Telefone: ${clienteInfo.telefone}`, margin, 74);
+                    }
+                    
+                    // Informações da ordem
+                    const dataCriacao = new Date(ordem.dataCriacao);
+                    const dataCriacaoStr = dataCriacao.toLocaleDateString('pt-BR');
+                    
+                    doc.text(`Data de Criação: ${dataCriacaoStr}`, margin, 85);
+                    doc.text(`Prazo: ${ordem.dataPrazo}`, margin, 92);
+                    doc.text(`Status: ${ordem.status}`, margin, 99);
+                    doc.text(`Prioridade: ${ordem.prioridade}`, margin, 106);
+                    
+                    // Informações da empresa
+                    let empresaY = 85;
+                    if (empresaInfo.telefone) {
+                        doc.text(`Telefone: ${empresaInfo.telefone}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
+                    }
+                    if (empresaInfo.email) {
+                        doc.text(`Email: ${empresaInfo.email}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
+                    }
+                    if (empresaInfo.cnpj) {
+                        doc.text(`CNPJ: ${empresaInfo.cnpj}`, pageWidth - margin, empresaY, { align: 'right' });
+                        empresaY += 7;
                     }
                     
                     // Serviços
                     doc.setFontSize(12);
-                    doc.text('Serviços:', 20, 80);
+                    doc.text('DESCRIÇÃO DOS SERVIÇOS', margin, 120);
+                    
                     doc.setFontSize(10);
-                    const servicosLines = doc.splitTextToSize(orcamento.servicos, 170);
-                    doc.text(servicosLines, 20, 87);
+                    doc.setDrawColor(200, 200, 200);
+                    doc.setLineWidth(0.5);
+                    doc.line(margin, 122, pageWidth - margin, 122);
+                    
+                    const servicosLines = doc.splitTextToSize(ordem.servicos, pageWidth - 2 * margin);
+                    doc.text(servicosLines, margin, 130);
                     
                     // Valor
                     const servicosHeight = servicosLines.length * 5;
-                    const valorY = 87 + servicosHeight + 10;
+                    const valorY = 135 + servicosHeight;
                     
                     doc.setFontSize(12);
-                    doc.text('Valor Total:', 20, valorY);
-                    doc.setFontSize(16);
+                    doc.text('VALOR TOTAL', margin, valorY);
+                    
+                    doc.setFontSize(20);
                     doc.setTextColor(39, 174, 96);
-                    doc.text(`R$ ${orcamento.valor.toFixed(2)}`, 60, valorY);
+                    doc.text(`R$ ${ordem.valor.toFixed(2)}`, pageWidth - margin, valorY, { align: 'right' });
+                    
+                    // Observações
+                    if (ordem.observacoes) {
+                        doc.setFontSize(12);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text('OBSERVAÇÕES', margin, valorY + 15);
+                        
+                        doc.setFontSize(10);
+                        const obsLines = doc.splitTextToSize(ordem.observacoes, pageWidth - 2 * margin);
+                        doc.text(obsLines, margin, valorY + 23);
+                    }
+                    
+                    // Rodapé
+                    const footerY = doc.internal.pageSize.height - 20;
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Documento gerado em: ${new Date().toLocaleDateString('pt-BR')} ${new Date().toLocaleTimeString('pt-BR')}`, pageWidth / 2, footerY, { align: 'center' });
                     
                     // Salvar PDF
-                    doc.save(`orcamento_${orcamento.id}.pdf`);
+                    doc.save(`ordem_${ordem.id}_${empresaInfo.nome.replace(/\s+/g, '_')}.pdf`);
                     
                     showToast('PDF gerado com sucesso', 'success');
-                    addAtividade('orcamento', 'PDF do orçamento gerado', clienteInfo.nome);
+                    addAtividade('ordem', 'PDF da ordem gerado', clienteInfo.nome);
                 };
             };
         }
@@ -2790,23 +3887,7 @@ CleanSoft - Lavagem a Seco`;
             
             // Criar elemento toast
             const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
-                color: white;
-                padding: 12px 20px;
-                border-radius: var(--radius-sm);
-                box-shadow: var(--shadow);
-                z-index: 9999;
-                font-weight: 500;
-                max-width: 90%;
-                text-align: center;
-                animation: slideDown 0.3s ease;
-            `;
+            toast.className = `toast-notification ${type}`;
             
             toast.textContent = message;
             document.body.appendChild(toast);
@@ -2821,20 +3902,6 @@ CleanSoft - Lavagem a Seco`;
                 }, 300);
             }, 3000);
         }
-
-        // Adicionar animações CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideDown {
-                from { top: 80px; opacity: 0; }
-                to { top: 100px; opacity: 1; }
-            }
-            @keyframes slideUp {
-                from { top: 100px; opacity: 1; }
-                to { top: 80px; opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
