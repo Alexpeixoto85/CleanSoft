@@ -42,7 +42,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             color: var(--dark);
             line-height: 1.5;
             min-height: 100vh;
@@ -54,7 +54,7 @@
         .app-header {
             background: linear-gradient(135deg, #4361ee, #3a0ca3);
             color: white;
-            padding: 20px 20px 15px;
+            padding: 20px 20px 10px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -67,6 +67,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
         }
 
         .logo {
@@ -114,13 +115,14 @@
         }
 
         .page-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            padding: 10px 0;
-            margin-top: 10px;
+            padding: 8px 0;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
         }
 
         /* ===== NAVEGAÇÃO INFERIOR ===== */
@@ -197,6 +199,139 @@
             to { opacity: 1; }
         }
 
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .dashboard-card:active {
+            transform: scale(0.98);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .dashboard-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* ===== ATALHOS ===== */
+        .atalhos-section {
+            margin: 25px 0;
+        }
+
+        .atalhos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .atalho-btn {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .atalho-btn i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .atalho-btn span {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .atalho-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .atalho-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== RESUMO ===== */
+        .resumo-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .resumo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .resumo-header h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resumo-content {
+            min-height: 100px;
+            color: var(--gray);
+        }
+
         /* ===== CARDS ===== */
         .card {
             background: white;
@@ -222,61 +357,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        /* ===== STATS GRID ATUALIZADO ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 20px 15px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-light);
-        }
-
-        .stat-card:active {
-            transform: scale(0.98);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: white;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
-        }
-
-        .stat-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        .stat-info p {
-            font-size: 0.85rem;
-            color: var(--gray);
-            font-weight: 600;
         }
 
         /* ===== BOTÕES ===== */
@@ -667,45 +747,6 @@
             border-left: 4px solid var(--primary);
         }
 
-        /* ===== AÇÕES RÁPIDAS ===== */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .action-btn {
-            background: white;
-            border-radius: var(--radius);
-            padding: 20px 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            text-decoration: none;
-            color: var(--dark);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-
-        .action-btn i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        .action-btn span {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-
         /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
@@ -731,7 +772,11 @@
 
         /* ===== RESPONSIVO ===== */
         @media (max-width: 768px) {
-            .stats-grid {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .atalhos-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -758,11 +803,11 @@
         }
 
         @media (max-width: 480px) {
-            .stats-grid {
+            .dashboard-grid {
                 grid-template-columns: 1fr;
             }
             
-            .quick-actions {
+            .atalhos-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -827,48 +872,6 @@
             font-family: 'Courier New', monospace;
             white-space: pre-wrap;
         }
-
-        .pdf-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .pdf-header h2 {
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .pdf-info {
-            margin: 15px 0;
-        }
-
-        .pdf-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .pdf-table th, .pdf-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .pdf-table th {
-            background: #f8f9ff;
-            color: var(--primary);
-        }
-
-        .pdf-footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--light-gray);
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
@@ -899,75 +902,72 @@
     <main class="main-content">
         <!-- Dashboard -->
         <section id="dashboard" class="page active">
-            <div class="stats-grid">
-                <div class="stat-card" onclick="mostrarPagina('clientes')">
-                    <div class="stat-icon">
+            <div class="dashboard-grid">
+                <div class="dashboard-card" onclick="mostrarPagina('clientes')">
+                    <div class="card-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <div class="stat-info">
-                        <h3 id="totalClientes">0</h3>
-                        <p>Clientes</p>
-                    </div>
+                    <h3 id="totalClientes">0</h3>
+                    <p>Clientes</p>
                 </div>
-                <div class="stat-card" onclick="mostrarPagina('financeiro')">
-                    <div class="stat-icon">
+                <div class="dashboard-card" onclick="mostrarPagina('financeiro')">
+                    <div class="card-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="stat-info">
-                        <h3 id="receitaTotal">R$ 0</h3>
-                        <p>Receita</p>
-                    </div>
+                    <h3 id="receitaTotal">R$ 0</h3>
+                    <p>Receita</p>
                 </div>
-                <div class="stat-card" onclick="mostrarPagina('ordens')">
-                    <div class="stat-icon">
+                <div class="dashboard-card" onclick="mostrarPagina('ordens')">
+                    <div class="card-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
-                    <div class="stat-info">
-                        <h3 id="totalOrdens">0</h3>
-                        <p>Ordens Ativas</p>
-                    </div>
+                    <h3 id="totalOrdens">0</h3>
+                    <p>Ordens Ativas</p>
                 </div>
-                <div class="stat-card" onclick="mostrarPagina('agendamentos')">
-                    <div class="stat-icon">
+                <div class="dashboard-card" onclick="mostrarPagina('agendamentos')">
+                    <div class="card-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <div class="stat-info">
-                        <h3 id="totalAgendamentos">0</h3>
-                        <p>Agendamentos</p>
-                    </div>
+                    <h3 id="totalAgendamentos">0</h3>
+                    <p>Agendamentos</p>
                 </div>
             </div>
 
-            <div class="quick-actions">
-                <button class="action-btn" onclick="mostrarClienteForm()">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Novo Cliente</span>
-                </button>
-                <button class="action-btn" onclick="mostrarOrcamentoForm()">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    <span>Novo Orçamento</span>
-                </button>
-                <button class="action-btn" onclick="mostrarOrdemForm()">
-                    <i class="fas fa-clipboard-check"></i>
-                    <span>Nova Ordem</span>
-                </button>
-                <button class="action-btn" onclick="mostrarAgendamentoForm()">
-                    <i class="fas fa-calendar-plus"></i>
-                    <span>Novo Agendamento</span>
-                </button>
+            <div class="atalhos-section">
+                <div class="resumo-header">
+                    <h2><i class="fas fa-bolt"></i> Atalhos</h2>
+                </div>
+                <div class="atalhos-grid">
+                    <button class="atalho-btn" onclick="mostrarClienteForm()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Novo Cliente</span>
+                    </button>
+                    <button class="atalho-btn" onclick="mostrarOrcamentoForm()">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Novo Orçamento</span>
+                    </button>
+                    <button class="atalho-btn" onclick="mostrarOrdemForm()">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>Nova Ordem</span>
+                    </button>
+                    <button class="atalho-btn" onclick="mostrarAgendamentoForm()">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Novo Agendamento</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
+            <div class="resumo-section">
+                <div class="resumo-header">
                     <h2><i class="fas fa-history"></i> Atividades Recentes</h2>
                 </div>
-                <ul class="list" id="recentActivities">
+                <div class="resumo-content" id="recentActivities">
                     <div class="empty-state">
                         <i class="fas fa-clock"></i>
                         <h3>Nenhuma atividade</h3>
                         <p>As atividades aparecerão aqui</p>
                     </div>
-                </ul>
+                </div>
             </div>
         </section>
 
@@ -1070,14 +1070,14 @@
                     <h2><i class="fas fa-chart-line"></i> Financeiro</h2>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                    <div class="stat-card">
-                        <div class="stat-info">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card">
                             <h3 id="receitaMes">R$ 0</h3>
                             <p>Receita Mês</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card">
                             <h3 id="pendentes">R$ 0</h3>
                             <p>Pendentes</p>
                         </div>
@@ -2696,12 +2696,12 @@
                 const hora = new Date(atividade.data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
                 
                 html += `
-                    <li class="list-item">
+                    <div class="list-item">
                         <div class="list-item-content">
                             <h3>${atividade.descricao}</h3>
                             <p>${atividade.detalhes ? atividade.detalhes + ' • ' : ''}${data} ${hora}</p>
                         </div>
-                    </li>
+                    </div>
                 `;
             });
             
