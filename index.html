@@ -7,6 +7,8 @@
     <title>CleanSoft Mobile Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <style>
         /* ===== VARIÁVEIS ATUALIZADAS ===== */
         :root {
@@ -222,10 +224,10 @@
             gap: 10px;
         }
 
-        /* ===== STATS GRID ===== */
+        /* ===== STATS GRID ATUALIZADO ===== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -237,6 +239,14 @@
             box-shadow: var(--shadow);
             text-align: center;
             transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
 
         .stat-card:active {
@@ -299,8 +309,18 @@
             color: white;
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, #f8961e, #f3722c);
+            color: white;
+        }
+
         .btn-whatsapp {
             background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A52);
             color: white;
         }
 
@@ -376,6 +396,11 @@
 
         .icon-btn.whatsapp:hover {
             background: #25D366;
+            color: white;
+        }
+
+        .icon-btn.pdf:hover {
+            background: #FF6B6B;
             color: white;
         }
 
@@ -568,6 +593,21 @@
             color: #f72585;
         }
 
+        .status-andamento {
+            background: rgba(114, 9, 183, 0.1);
+            color: #7209b7;
+        }
+
+        .status-agendado {
+            background: rgba(72, 149, 239, 0.1);
+            color: #4895ef;
+        }
+
+        .status-confirmado {
+            background: rgba(76, 201, 240, 0.1);
+            color: #4cc9f0;
+        }
+
         /* ===== NOTIFICAÇÕES ===== */
         .toast {
             position: fixed;
@@ -594,45 +634,37 @@
             background: linear-gradient(135deg, #f72585, #b5179e);
         }
 
+        .toast.warning {
+            background: linear-gradient(135deg, #f8961e, #f3722c);
+        }
+
         @keyframes slideDown {
             from { top: 80px; opacity: 0; }
             to { top: 100px; opacity: 1; }
         }
 
-        /* ===== RESPONSIVO ===== */
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .main-content {
-                padding: 15px;
-            }
-            
-            .modal-content {
-                max-height: 85vh;
-            }
-            
-            .fab {
-                bottom: 80px;
-                right: 15px;
-            }
+        /* ===== IMPORT/EXPORT ===== */
+        .backup-section {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: var(--radius);
+            background: #f8f9ff;
+            border: 2px dashed var(--primary-light);
         }
 
-        /* ===== LOADING ===== */
-        .spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(67, 97, 238, 0.2);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        .backup-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .backup-info {
+            background: white;
+            padding: 12px 15px;
+            border-radius: var(--radius-sm);
+            margin: 10px 0;
+            border-left: 4px solid var(--primary);
         }
 
         /* ===== AÇÕES RÁPIDAS ===== */
@@ -673,6 +705,170 @@
         .action-btn:active {
             transform: scale(0.98);
         }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--light-gray);
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .empty-state p {
+            margin-bottom: 20px;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .modal-content {
+                max-height: 85vh;
+            }
+            
+            .fab {
+                bottom: 80px;
+                right: 15px;
+            }
+            
+            .backup-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .list-item-actions {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== LOADING ===== */
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== FILE INPUT ===== */
+        .file-input-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-label {
+            display: block;
+            padding: 15px;
+            background: white;
+            border: 2px dashed var(--primary-light);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-label:hover {
+            background: #f8f9ff;
+            border-color: var(--primary);
+        }
+
+        /* ===== PDF PREVIEW ===== */
+        .pdf-preview {
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+
+        .pdf-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .pdf-header h2 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .pdf-info {
+            margin: 15px 0;
+        }
+
+        .pdf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .pdf-table th, .pdf-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .pdf-table th {
+            background: #f8f9ff;
+            color: var(--primary);
+        }
+
+        .pdf-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -704,7 +900,7 @@
         <!-- Dashboard -->
         <section id="dashboard" class="page active">
             <div class="stats-grid">
-                <div class="stat-card" onclick="showPage('clientes')">
+                <div class="stat-card" onclick="mostrarPagina('clientes')">
                     <div class="stat-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -713,7 +909,7 @@
                         <p>Clientes</p>
                     </div>
                 </div>
-                <div class="stat-card" onclick="showPage('financeiro')">
+                <div class="stat-card" onclick="mostrarPagina('financeiro')">
                     <div class="stat-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -722,7 +918,7 @@
                         <p>Receita</p>
                     </div>
                 </div>
-                <div class="stat-card" onclick="showPage('ordens')">
+                <div class="stat-card" onclick="mostrarPagina('ordens')">
                     <div class="stat-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
@@ -731,7 +927,7 @@
                         <p>Ordens Ativas</p>
                     </div>
                 </div>
-                <div class="stat-card" onclick="showPage('agendamentos')">
+                <div class="stat-card" onclick="mostrarPagina('agendamentos')">
                     <div class="stat-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
@@ -743,19 +939,19 @@
             </div>
 
             <div class="quick-actions">
-                <button class="action-btn" onclick="showClienteForm()">
+                <button class="action-btn" onclick="mostrarClienteForm()">
                     <i class="fas fa-user-plus"></i>
                     <span>Novo Cliente</span>
                 </button>
-                <button class="action-btn" onclick="showOrcamentoForm()">
+                <button class="action-btn" onclick="mostrarOrcamentoForm()">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Novo Orçamento</span>
                 </button>
-                <button class="action-btn" onclick="showOrdemForm()">
+                <button class="action-btn" onclick="mostrarOrdemForm()">
                     <i class="fas fa-clipboard-check"></i>
                     <span>Nova Ordem</span>
                 </button>
-                <button class="action-btn" onclick="showAgendamentoForm()">
+                <button class="action-btn" onclick="mostrarAgendamentoForm()">
                     <i class="fas fa-calendar-plus"></i>
                     <span>Novo Agendamento</span>
                 </button>
@@ -784,7 +980,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-users"></i> Clientes</h2>
-                    <button class="btn btn-primary" onclick="showClienteForm()">
+                    <button class="btn btn-primary" onclick="mostrarClienteForm()">
                         <i class="fas fa-plus"></i> Novo
                     </button>
                 </div>
@@ -793,7 +989,7 @@
                         <i class="fas fa-users"></i>
                         <h3>Nenhum cliente</h3>
                         <p>Adicione seu primeiro cliente</p>
-                        <button class="btn btn-primary" onclick="showClienteForm()" style="margin-top: 15px; width: 100%;">
+                        <button class="btn btn-primary" onclick="mostrarClienteForm()" style="margin-top: 15px; width: 100%;">
                             <i class="fas fa-plus"></i> Adicionar Cliente
                         </button>
                     </div>
@@ -806,7 +1002,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-file-invoice-dollar"></i> Orçamentos</h2>
-                    <button class="btn btn-primary" onclick="showOrcamentoForm()">
+                    <button class="btn btn-primary" onclick="mostrarOrcamentoForm()">
                         <i class="fas fa-plus"></i> Novo
                     </button>
                 </div>
@@ -815,7 +1011,7 @@
                         <i class="fas fa-file-invoice-dollar"></i>
                         <h3>Nenhum orçamento</h3>
                         <p>Crie seu primeiro orçamento</p>
-                        <button class="btn btn-primary" onclick="showOrcamentoForm()" style="margin-top: 15px; width: 100%;">
+                        <button class="btn btn-primary" onclick="mostrarOrcamentoForm()" style="margin-top: 15px; width: 100%;">
                             <i class="fas fa-plus"></i> Criar Orçamento
                         </button>
                     </div>
@@ -828,7 +1024,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-clipboard-list"></i> Ordens de Serviço</h2>
-                    <button class="btn btn-primary" onclick="showOrdemForm()">
+                    <button class="btn btn-primary" onclick="mostrarOrdemForm()">
                         <i class="fas fa-plus"></i> Nova
                     </button>
                 </div>
@@ -837,7 +1033,7 @@
                         <i class="fas fa-clipboard-list"></i>
                         <h3>Nenhuma ordem</h3>
                         <p>Crie sua primeira ordem</p>
-                        <button class="btn btn-primary" onclick="showOrdemForm()" style="margin-top: 15px; width: 100%;">
+                        <button class="btn btn-primary" onclick="mostrarOrdemForm()" style="margin-top: 15px; width: 100%;">
                             <i class="fas fa-plus"></i> Criar Ordem
                         </button>
                     </div>
@@ -850,7 +1046,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-calendar-alt"></i> Agendamentos</h2>
-                    <button class="btn btn-primary" onclick="showAgendamentoForm()">
+                    <button class="btn btn-primary" onclick="mostrarAgendamentoForm()">
                         <i class="fas fa-plus"></i> Novo
                     </button>
                 </div>
@@ -859,7 +1055,7 @@
                         <i class="fas fa-calendar-alt"></i>
                         <h3>Nenhum agendamento</h3>
                         <p>Agende seu primeiro serviço</p>
-                        <button class="btn btn-primary" onclick="showAgendamentoForm()" style="margin-top: 15px; width: 100%;">
+                        <button class="btn btn-primary" onclick="mostrarAgendamentoForm()" style="margin-top: 15px; width: 100%;">
                             <i class="fas fa-plus"></i> Agendar Serviço
                         </button>
                     </div>
@@ -919,10 +1115,32 @@
                 <button class="btn btn-primary" onclick="salvarConfiguracoes()" style="width: 100%;">
                     <i class="fas fa-save"></i> Salvar Configurações
                 </button>
+                
+                <div class="backup-section">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);">
+                        <i class="fas fa-database"></i> Backup & Restauração
+                    </h3>
+                    <div class="backup-info">
+                        <p><strong>Exportar:</strong> Salve todos os dados em um arquivo JSON</p>
+                        <p><strong>Importar:</strong> Restaure dados a partir de um backup</p>
+                    </div>
+                    <div class="backup-buttons">
+                        <button class="btn btn-success" onclick="exportarDados()">
+                            <i class="fas fa-file-export"></i> Exportar Backup
+                        </button>
+                        <button class="btn btn-warning" onclick="mostrarImportarBackup()">
+                            <i class="fas fa-file-import"></i> Importar Backup
+                        </button>
+                    </div>
+                    <div class="file-input-container" style="display: none;" id="importContainer">
+                        <input type="file" id="backupFile" class="file-input" accept=".json">
+                        <label for="backupFile" class="file-label">
+                            <i class="fas fa-upload"></i> Selecione o arquivo de backup
+                        </label>
+                    </div>
+                </div>
+                
                 <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid var(--light-gray);">
-                    <button class="btn btn-success" onclick="exportarDados()" style="width: 100%; margin-bottom: 10px;">
-                        <i class="fas fa-file-export"></i> Exportar Dados
-                    </button>
                     <button class="btn btn-danger" onclick="limparDados()" style="width: 100%;">
                         <i class="fas fa-trash"></i> Limpar Todos os Dados
                     </button>
@@ -990,6 +1208,7 @@
         let currentPage = 'dashboard';
         let editingId = null;
         let whatsappNumero = '';
+        const { jsPDF } = window.jspdf;
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
@@ -1378,9 +1597,14 @@
             const footer = `
                 <button type="button" class="btn btn-danger" onclick="fecharModal()">Cancelar</button>
                 <button type="button" class="btn btn-success" onclick="salvarOrcamento()">Salvar</button>
-                ${orcamento ? `<button type="button" class="btn btn-whatsapp" onclick="enviarOrcamentoWhatsApp(${orcamento.id})">
-                    <i class="fab fa-whatsapp"></i> Enviar
-                </button>` : ''}
+                ${orcamento ? `
+                    <button type="button" class="btn btn-pdf" onclick="gerarPDFOrcamento(${orcamento.id})">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button type="button" class="btn btn-whatsapp" onclick="enviarOrcamentoWhatsApp(${orcamento.id})">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                ` : ''}
             `;
             
             document.getElementById('modalBody').innerHTML = html;
@@ -1406,12 +1630,13 @@
             const orcamento = {
                 clienteId: parseInt(clienteId),
                 clienteNome: cliente ? cliente.nome : 'Cliente',
+                clienteTelefone: cliente ? cliente.telefone : '',
                 servicos,
                 valor,
                 validade,
                 status,
                 data: new Date().toISOString(),
-                numero: Date.now().toString().slice(-6)
+                numero: 'ORC' + Date.now().toString().slice(-6)
             };
             
             if (editingId) orcamento.id = editingId;
@@ -1465,7 +1690,7 @@
                 html += `
                     <li class="list-item">
                         <div class="list-item-content">
-                            <h3>Orçamento #${orcamento.numero}</h3>
+                            <h3>${orcamento.numero}</h3>
                             <p><i class="fas fa-user"></i> ${cliente ? cliente.nome : 'Cliente não encontrado'}</p>
                             <p><i class="fas fa-dollar-sign"></i> R$ ${orcamento.valor.toFixed(2)}</p>
                             <span class="status status-${orcamento.status}">${orcamento.status}</span>
@@ -1474,7 +1699,10 @@
                             <button class="icon-btn" onclick="editarOrcamento(${orcamento.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="icon-btn whatsapp" onclick="enviarOrcamentoWhatsApp(${orcamento.id})" title="Enviar WhatsApp">
+                            <button class="icon-btn pdf" onclick="gerarPDFOrcamento(${orcamento.id})" title="PDF">
+                                <i class="fas fa-file-pdf"></i>
+                            </button>
+                            <button class="icon-btn whatsapp" onclick="enviarOrcamentoWhatsApp(${orcamento.id})" title="WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                         </div>
@@ -1542,9 +1770,14 @@
             const footer = `
                 <button type="button" class="btn btn-danger" onclick="fecharModal()">Cancelar</button>
                 <button type="button" class="btn btn-success" onclick="salvarOrdem()">Salvar</button>
-                ${ordem ? `<button type="button" class="btn btn-whatsapp" onclick="enviarOrdemWhatsApp(${ordem.id})">
-                    <i class="fab fa-whatsapp"></i> Enviar
-                </button>` : ''}
+                ${ordem ? `
+                    <button type="button" class="btn btn-pdf" onclick="gerarPDFOrdem(${ordem.id})">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button type="button" class="btn btn-whatsapp" onclick="enviarOrdemWhatsApp(${ordem.id})">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                ` : ''}
             `;
             
             document.getElementById('modalBody').innerHTML = html;
@@ -1570,6 +1803,7 @@
             const ordem = {
                 clienteId: parseInt(clienteId),
                 clienteNome: cliente ? cliente.nome : 'Cliente',
+                clienteTelefone: cliente ? cliente.telefone : '',
                 servicos,
                 valor,
                 status,
@@ -1639,6 +1873,9 @@
                         <div class="list-item-actions">
                             <button class="icon-btn" onclick="editarOrdem(${ordem.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="icon-btn pdf" onclick="gerarPDFOrdem(${ordem.id})" title="PDF">
+                                <i class="fas fa-file-pdf"></i>
                             </button>
                             <button class="icon-btn whatsapp" onclick="enviarOrdemWhatsApp(${ordem.id})" title="WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
@@ -1885,6 +2122,284 @@
             container.innerHTML = html;
         }
 
+        // ===== GERAR PDFs =====
+        async function gerarPDFOrcamento(id) {
+            const orcamento = await obterPorId('orcamentos', id);
+            if (!orcamento) {
+                mostrarToast('Orçamento não encontrado', 'error');
+                return;
+            }
+            
+            const cliente = await obterPorId('clientes', orcamento.clienteId);
+            
+            // Criar PDF
+            const doc = new jsPDF();
+            
+            // Configurações
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+            
+            // Cabeçalho
+            doc.setFillColor(67, 97, 238);
+            doc.rect(0, 0, pageWidth, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CleanSoft Pro', margin, 25);
+            
+            doc.setFontSize(12);
+            doc.text('Lavagem & Seco Premium', margin, 33);
+            
+            // Título
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(20);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ORÇAMENTO', pageWidth / 2, 60, { align: 'center' });
+            
+            // Número do orçamento
+            doc.setFontSize(14);
+            doc.text(`Nº: ${orcamento.numero}`, pageWidth - margin, 60, { align: 'right' });
+            
+            // Linha separadora
+            doc.setDrawColor(67, 97, 238);
+            doc.setLineWidth(0.5);
+            doc.line(margin, 65, pageWidth - margin, 65);
+            
+            let yPos = 80;
+            
+            // Informações do cliente
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CLIENTE:', margin, yPos);
+            
+            doc.setFont('helvetica', 'normal');
+            doc.text(cliente ? cliente.nome : 'Cliente não encontrado', margin + 25, yPos);
+            
+            yPos += 10;
+            doc.text('Telefone:', margin, yPos);
+            doc.text(cliente ? cliente.telefone : 'Não informado', margin + 25, yPos);
+            
+            if (cliente && cliente.email) {
+                yPos += 10;
+                doc.text('E-mail:', margin, yPos);
+                doc.text(cliente.email, margin + 25, yPos);
+            }
+            
+            if (cliente && cliente.endereco) {
+                yPos += 10;
+                doc.text('Endereço:', margin, yPos);
+                doc.text(cliente.endereco, margin + 25, yPos);
+            }
+            
+            yPos += 20;
+            
+            // Informações do orçamento
+            const data = new Date(orcamento.data).toLocaleDateString('pt-BR');
+            const validadeData = new Date(orcamento.data);
+            validadeData.setDate(validadeData.getDate() + orcamento.validade);
+            const validadeStr = validadeData.toLocaleDateString('pt-BR');
+            
+            doc.setFont('helvetica', 'bold');
+            doc.text('DATA DO ORÇAMENTO:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(data, margin + 55, yPos);
+            
+            yPos += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.text('VALIDADE:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(validadeStr, margin + 30, yPos);
+            
+            yPos += 20;
+            
+            // Serviços
+            doc.setFont('helvetica', 'bold');
+            doc.text('SERVIÇOS SOLICITADOS:', margin, yPos);
+            yPos += 10;
+            
+            doc.setFont('helvetica', 'normal');
+            const servicosLines = doc.splitTextToSize(orcamento.servicos, contentWidth);
+            doc.text(servicosLines, margin, yPos);
+            yPos += (servicosLines.length * 7);
+            
+            yPos += 10;
+            
+            // Valor
+            doc.setFont('helvetica', 'bold');
+            doc.text('VALOR TOTAL:', margin, yPos);
+            doc.setFontSize(16);
+            doc.text(`R$ ${orcamento.valor.toFixed(2)}`, pageWidth - margin, yPos, { align: 'right' });
+            
+            yPos += 20;
+            
+            // Status
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('STATUS:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(orcamento.status.toUpperCase(), margin + 25, yPos);
+            
+            // Rodapé
+            yPos += 30;
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Este orçamento é válido até a data de validade informada.', pageWidth / 2, yPos, { align: 'center' });
+            
+            yPos += 10;
+            doc.text('CleanSoft Pro - Sistema de Gestão de Lavanderia', pageWidth / 2, yPos, { align: 'center' });
+            
+            yPos += 10;
+            doc.text(`Documento gerado em: ${new Date().toLocaleDateString('pt-BR')}`, pageWidth / 2, yPos, { align: 'center' });
+            
+            // Salvar PDF
+            doc.save(`Orcamento_${orcamento.numero}.pdf`);
+            
+            adicionarAtividade('PDF gerado - Orçamento', orcamento.numero);
+            mostrarToast('PDF gerado com sucesso!', 'success');
+        }
+
+        async function gerarPDFOrdem(id) {
+            const ordem = await obterPorId('ordens', id);
+            if (!ordem) {
+                mostrarToast('Ordem não encontrada', 'error');
+                return;
+            }
+            
+            const cliente = await obterPorId('clientes', ordem.clienteId);
+            
+            // Criar PDF
+            const doc = new jsPDF();
+            
+            // Configurações
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+            
+            // Cabeçalho
+            doc.setFillColor(67, 97, 238);
+            doc.rect(0, 0, pageWidth, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CleanSoft Pro', margin, 25);
+            
+            doc.setFontSize(12);
+            doc.text('Lavagem & Seco Premium', margin, 33);
+            
+            // Título
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(20);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ORDEM DE SERVIÇO', pageWidth / 2, 60, { align: 'center' });
+            
+            // Número da ordem
+            doc.setFontSize(14);
+            doc.text(`Nº: ${ordem.numero}`, pageWidth - margin, 60, { align: 'right' });
+            
+            // Linha separadora
+            doc.setDrawColor(67, 97, 238);
+            doc.setLineWidth(0.5);
+            doc.line(margin, 65, pageWidth - margin, 65);
+            
+            let yPos = 80;
+            
+            // Informações do cliente
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CLIENTE:', margin, yPos);
+            
+            doc.setFont('helvetica', 'normal');
+            doc.text(cliente ? cliente.nome : 'Cliente não encontrado', margin + 25, yPos);
+            
+            yPos += 10;
+            doc.text('Telefone:', margin, yPos);
+            doc.text(cliente ? cliente.telefone : 'Não informado', margin + 25, yPos);
+            
+            if (cliente && cliente.email) {
+                yPos += 10;
+                doc.text('E-mail:', margin, yPos);
+                doc.text(cliente.email, margin + 25, yPos);
+            }
+            
+            yPos += 20;
+            
+            // Informações da ordem
+            const dataCriacao = new Date(ordem.dataCriacao).toLocaleDateString('pt-BR');
+            
+            doc.setFont('helvetica', 'bold');
+            doc.text('DATA DA ORDEM:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(dataCriacao, margin + 45, yPos);
+            
+            yPos += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.text('PRAZO:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(ordem.dataPrazo, margin + 25, yPos);
+            
+            yPos += 20;
+            
+            // Serviços
+            doc.setFont('helvetica', 'bold');
+            doc.text('SERVIÇOS A REALIZAR:', margin, yPos);
+            yPos += 10;
+            
+            doc.setFont('helvetica', 'normal');
+            const servicosLines = doc.splitTextToSize(ordem.servicos, contentWidth);
+            doc.text(servicosLines, margin, yPos);
+            yPos += (servicosLines.length * 7);
+            
+            yPos += 10;
+            
+            // Valor
+            doc.setFont('helvetica', 'bold');
+            doc.text('VALOR DO SERVIÇO:', margin, yPos);
+            doc.setFontSize(16);
+            doc.text(`R$ ${ordem.valor.toFixed(2)}`, pageWidth - margin, yPos, { align: 'right' });
+            
+            yPos += 20;
+            
+            // Status
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('STATUS:', margin, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(ordem.status.toUpperCase(), margin + 25, yPos);
+            
+            yPos += 10;
+            
+            // Observações
+            doc.setFont('helvetica', 'bold');
+            doc.text('OBSERVAÇÕES:', margin, yPos);
+            yPos += 10;
+            
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.text('1. Esta ordem deve ser apresentada no momento da retirada dos serviços.', margin, yPos);
+            yPos += 7;
+            doc.text('2. O prazo informado é estimado e pode sofrer alterações conforme demanda.', margin, yPos);
+            yPos += 7;
+            doc.text('3. Em caso de cancelamento, entrar em contato com 24h de antecedência.', margin, yPos);
+            
+            // Rodapé
+            yPos += 30;
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text('CleanSoft Pro - Sistema de Gestão de Lavanderia', pageWidth / 2, yPos, { align: 'center' });
+            
+            yPos += 10;
+            doc.text(`Documento gerado em: ${new Date().toLocaleDateString('pt-BR')}`, pageWidth / 2, yPos, { align: 'center' });
+            
+            // Salvar PDF
+            doc.save(`Ordem_Servico_${ordem.numero}.pdf`);
+            
+            adicionarAtividade('PDF gerado - Ordem', ordem.numero);
+            mostrarToast('PDF gerado com sucesso!', 'success');
+        }
+
         // ===== WHATSAPP INTEGRATION =====
         async function enviarWhatsApp(telefone, tipo) {
             if (!whatsappNumero) {
@@ -2003,6 +2518,157 @@
             mostrarToast('Lembrete enviado!', 'success');
         }
 
+        // ===== BACKUP E RESTAURAÇÃO =====
+        async function exportarDados() {
+            if (!db) {
+                mostrarToast('Banco de dados não inicializado', 'error');
+                return;
+            }
+            
+            try {
+                const dados = {
+                    clientes: await obterTodos('clientes'),
+                    orcamentos: await obterTodos('orcamentos'),
+                    ordens: await obterTodos('ordens'),
+                    agendamentos: await obterTodos('agendamentos'),
+                    atividades: await obterTodos('atividades'),
+                    config: await obterTodos('config'),
+                    dataExportacao: new Date().toISOString(),
+                    versao: '2.0',
+                    sistema: 'CleanSoft Pro'
+                };
+                
+                const dadosStr = JSON.stringify(dados, null, 2);
+                const blob = new Blob([dadosStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `cleansoft_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                mostrarToast('Backup exportado com sucesso!', 'success');
+                adicionarAtividade('Backup exportado');
+                
+            } catch (error) {
+                console.error('Erro ao exportar dados:', error);
+                mostrarToast('Erro ao exportar dados', 'error');
+            }
+        }
+
+        function mostrarImportarBackup() {
+            const container = document.getElementById('importContainer');
+            container.style.display = 'block';
+            
+            const fileInput = document.getElementById('backupFile');
+            fileInput.onchange = function(e) {
+                importarDados(e.target.files[0]);
+            };
+            
+            mostrarToast('Selecione o arquivo de backup (.json)', 'warning');
+        }
+
+        async function importarDados(arquivo) {
+            if (!arquivo) {
+                mostrarToast('Nenhum arquivo selecionado', 'error');
+                return;
+            }
+            
+            if (!confirm('ATENÇÃO: Importar dados substituirá os dados atuais. Deseja continuar?')) {
+                return;
+            }
+            
+            const leitor = new FileReader();
+            
+            leitor.onload = async function(e) {
+                try {
+                    const dados = JSON.parse(e.target.result);
+                    
+                    // Validar estrutura do backup
+                    if (!dados.versao || !dados.sistema) {
+                        mostrarToast('Arquivo de backup inválido', 'error');
+                        return;
+                    }
+                    
+                    mostrarToast('Importando dados...', 'warning');
+                    
+                    // Limpar dados atuais
+                    const stores = ['clientes', 'orcamentos', 'ordens', 'agendamentos', 'atividades', 'config'];
+                    
+                    for (const storeName of stores) {
+                        const transaction = db.transaction([storeName], 'readwrite');
+                        const store = transaction.objectStore(storeName);
+                        await new Promise(resolve => {
+                            const request = store.clear();
+                            request.onsuccess = () => resolve();
+                            request.onerror = () => resolve();
+                        });
+                    }
+                    
+                    // Importar novos dados
+                    if (dados.clientes && Array.isArray(dados.clientes)) {
+                        for (const cliente of dados.clientes) {
+                            await adicionar('clientes', cliente);
+                        }
+                    }
+                    
+                    if (dados.orcamentos && Array.isArray(dados.orcamentos)) {
+                        for (const orcamento of dados.orcamentos) {
+                            await adicionar('orcamentos', orcamento);
+                        }
+                    }
+                    
+                    if (dados.ordens && Array.isArray(dados.ordens)) {
+                        for (const ordem of dados.ordens) {
+                            await adicionar('ordens', ordem);
+                        }
+                    }
+                    
+                    if (dados.agendamentos && Array.isArray(dados.agendamentos)) {
+                        for (const agendamento of dados.agendamentos) {
+                            await adicionar('agendamentos', agendamento);
+                        }
+                    }
+                    
+                    if (dados.atividades && Array.isArray(dados.atividades)) {
+                        for (const atividade of dados.atividades) {
+                            await adicionar('atividades', atividade);
+                        }
+                    }
+                    
+                    if (dados.config && Array.isArray(dados.config)) {
+                        for (const config of dados.config) {
+                            await adicionar('config', config);
+                        }
+                    }
+                    
+                    // Resetar input de arquivo
+                    document.getElementById('backupFile').value = '';
+                    document.getElementById('importContainer').style.display = 'none';
+                    
+                    // Recarregar dados
+                    carregarDados();
+                    carregarConfiguracoes();
+                    
+                    mostrarToast('Dados importados com sucesso!', 'success');
+                    adicionarAtividade('Backup importado');
+                    
+                } catch (error) {
+                    console.error('Erro ao importar dados:', error);
+                    mostrarToast('Erro ao importar dados. Arquivo inválido.', 'error');
+                }
+            };
+            
+            leitor.onerror = function() {
+                mostrarToast('Erro ao ler arquivo', 'error');
+            };
+            
+            leitor.readAsText(arquivo);
+        }
+
         // ===== ATIVIDADES =====
         async function carregarAtividades() {
             if (!db) return;
@@ -2097,51 +2763,14 @@
             try {
                 await atualizar('config', config);
                 mostrarToast('Configurações salvas!', 'success');
+                adicionarAtividade('Configurações atualizadas');
             } catch (error) {
                 mostrarToast('Erro ao salvar configurações', 'error');
             }
         }
 
-        // ===== BACKUP E RESTAURAÇÃO =====
-        async function exportarDados() {
-            if (!db) {
-                mostrarToast('Banco de dados não inicializado', 'error');
-                return;
-            }
-            
-            try {
-                const dados = {
-                    clientes: await obterTodos('clientes'),
-                    orcamentos: await obterTodos('orcamentos'),
-                    ordens: await obterTodos('ordens'),
-                    agendamentos: await obterTodos('agendamentos'),
-                    config: await obterTodos('config'),
-                    dataExportacao: new Date().toISOString(),
-                    versao: '1.0'
-                };
-                
-                const dadosStr = JSON.stringify(dados, null, 2);
-                const blob = new Blob([dadosStr], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `cleansoft_backup_${new Date().toISOString().split('T')[0]}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                mostrarToast('Dados exportados com sucesso!', 'success');
-                adicionarAtividade('Backup exportado');
-                
-            } catch (error) {
-                mostrarToast('Erro ao exportar dados', 'error');
-            }
-        }
-
         async function limparDados() {
-            if (!confirm('Tem certeza que deseja limpar TODOS os dados? Esta ação não pode ser desfeita.')) {
+            if (!confirm('ATENÇÃO: Tem certeza que deseja limpar TODOS os dados? Esta ação não pode ser desfeita.')) {
                 return;
             }
             
